@@ -1,13 +1,11 @@
 package com.example.sanzarouth.moviefinder;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -15,10 +13,7 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
-public class Search extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     public static final int RESULT_REQUEST = 1;
     ProgressBar spinner;
@@ -88,7 +83,7 @@ public class Search extends AppCompatActivity {
 
                 String response = OMDbAPICall.sendGet("?s=", query);
 
-                Intent resultsIntent = new Intent(getApplicationContext(), Results.class);
+                Intent resultsIntent = new Intent(getApplicationContext(), ResultsActivity.class);
 
                 resultsIntent.putExtra("queryResponse", response);
 

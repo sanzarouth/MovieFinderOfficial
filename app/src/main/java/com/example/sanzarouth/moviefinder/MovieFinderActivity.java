@@ -21,7 +21,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class MovieFinder extends AppCompatActivity implements View.OnClickListener {
+public class MovieFinderActivity extends AppCompatActivity implements View.OnClickListener {
 
     //TODO: Use Butterknife for view injection
 
@@ -55,7 +55,7 @@ public class MovieFinder extends AppCompatActivity implements View.OnClickListen
         ImageView selectedSearchImage = (ImageView) findViewById(R.id.selectedSearchImage);
         TextView selectedSearchText = (TextView) findViewById(R.id.selectedSearchText);
 
-        Intent searchIntent = new Intent(getApplicationContext(), Search.class);
+        Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
 
         switch(view.getId()) {
 

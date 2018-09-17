@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.io.InputStream;
 import java.net.URL;
 
-public class FullMovieInfo extends AppCompatActivity {
+public class FullMovieInfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

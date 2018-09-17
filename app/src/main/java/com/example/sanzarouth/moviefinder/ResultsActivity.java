@@ -7,12 +7,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class Results extends AppCompatActivity {
+public class ResultsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,7 @@ public class Results extends AppCompatActivity {
             moviesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Intent showFullMovie = new Intent(getApplicationContext(), FullMovieInfo.class);
+                    Intent showFullMovie = new Intent(getApplicationContext(), FullMovieInfoActivity.class);
 
                     Movie movie = (Movie) moviesList.getItemAtPosition(i);
 
