@@ -1,19 +1,39 @@
-package com.example.sanzarouth.moviefinder;
+package com.example.sanzarouth.moviefinder.Model;
+
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Movie {
 
+    @SerializedName("Title")
     String movieTitle;
+
+    @SerializedName("Year")
     String year;
+
+    @SerializedName("Director")
     String director;
+
+    @SerializedName("Genre")
     String genre;
+
+    @SerializedName("Plot")
     String plot;
+
+    @SerializedName("Actors")
     String cast;
+
+    @SerializedName("BoxOffice")
     String boxOffice;
+
+    @SerializedName("Awards")
     String awards;
+
+    @SerializedName("Poster")
     String poster;
+
     static int ID = 0;
 
     public Movie(String movieTitle){

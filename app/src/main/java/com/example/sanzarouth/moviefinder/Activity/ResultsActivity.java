@@ -1,17 +1,34 @@
-package com.example.sanzarouth.moviefinder;
+package com.example.sanzarouth.moviefinder.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.sanzarouth.moviefinder.Activity.FullMovieInfoActivity;
+import com.example.sanzarouth.moviefinder.Model.Movie;
+import com.example.sanzarouth.moviefinder.MoviesAdapter;
+import com.example.sanzarouth.moviefinder.OMDbAPICall;
+import com.example.sanzarouth.moviefinder.R;
+import com.example.sanzarouth.moviefinder.Rest.MovieAPIService;
+
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ResultsActivity extends AppCompatActivity {
+
+    private ListView moviesList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +58,7 @@ public class ResultsActivity extends AppCompatActivity {
 
             MoviesAdapter movieAdapter = new MoviesAdapter(this, result);
 
-            final ListView moviesList = (ListView) findViewById(R.id.moviesList);
+            moviesList = (ListView) findViewById(R.id.moviesList);
 
             moviesList.setAdapter(movieAdapter);
 

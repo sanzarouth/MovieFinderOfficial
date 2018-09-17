@@ -1,4 +1,4 @@
-package com.example.sanzarouth.moviefinder;
+package com.example.sanzarouth.moviefinder.Activity;
 
 import android.graphics.drawable.Drawable;
 import android.media.Image;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.sanzarouth.moviefinder.R;
 
 import java.io.InputStream;
 import java.net.URL;

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_weight="1"
-    tools:context=".MovieFinderActivity">
+    tools:context=".Activity.MovieFinderActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"

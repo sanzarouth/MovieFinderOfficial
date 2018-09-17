@@ -1,7 +1,8 @@
 package com.example.sanzarouth.moviefinder;
 
-import android.media.Image;
 import android.os.StrictMode;
+
+import com.example.sanzarouth.moviefinder.Model.Movie;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,9 +11,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Stack;
 
 public class OMDbAPICall {
 
@@ -109,6 +108,7 @@ public class OMDbAPICall {
         String response = "";
         try {
             link = new URL(URL + searchType + field + "&plot=full" + KEY);
+            System.out.println(link);
             HttpURLConnection connection = (HttpURLConnection) link.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Content-Type", "application/json");
