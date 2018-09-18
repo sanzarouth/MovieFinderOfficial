@@ -38,13 +38,9 @@ public class SearchResults extends AppCompatActivity {
         SearchView searchView = (SearchView) findViewById(R.id.searchView);
         String query = getIntent().getExtras().getString("query");
 
-        System.out.println(query);
-
         GetMovieDataService service = RetrofitInstance.getRetrofitInstance().create(GetMovieDataService.class);
 
         Call<MovieList> call = service.getMovies(query, "full", MovieFinderActivity.KEY);
-
-        System.out.println(call.request().url() + "    JDJADJS D AJIDJASIDJASD ");
 
         lv = (ListView) findViewById(R.id.moviesList);
 

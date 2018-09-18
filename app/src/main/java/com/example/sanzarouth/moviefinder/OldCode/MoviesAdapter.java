@@ -47,13 +47,13 @@ public class MoviesAdapter extends BaseAdapter {
 
         ImageView moviePoster = (ImageView) v.findViewById(R.id.imageView);
         TextView movieTitle = (TextView) v.findViewById(R.id.movieTitle);
-        TextView movieGenre = (TextView) v.findViewById(R.id.movieGenre);
+//        TextView movieGenre = (TextView) v.findViewById(R.id.movieGenre);
         TextView movieYear = (TextView) v.findViewById(R.id.movieYear);
 
         Movie movie = movies.get(i);
 
         movieTitle.setText(movie.getMovieTitle());
-        movieGenre.setText(movie.getGenre());
+//        movieGenre.setText(movie.getGenre());
         movieYear.setText(movie.getYear());
         if(movie.getPoster().equals("N/A")){
             moviePoster.setImageResource(R.drawable.logo);

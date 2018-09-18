@@ -17,7 +17,7 @@ public interface GetMovieDataService {
     @GET("/")
     Call<MovieList> getMovies(@Query("s") String title, @Query("plot") String plot, @Query("apikey") String key);
 
-    @GET("?t=/{title}&plot=full{key}")
-    Call<Movie> getMovie(String title, String key);
+    @GET("/")
+    Call<Movie> getMovie(@Query("t") String title, @Query("plot") String plot, @Query("apikey") String key);
 
 }
