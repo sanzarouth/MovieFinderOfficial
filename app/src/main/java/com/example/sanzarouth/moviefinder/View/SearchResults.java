@@ -2,13 +2,12 @@ package com.example.sanzarouth.moviefinder.View;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.example.sanzarouth.moviefinder.Adapter.NewAdapter;
+import com.example.sanzarouth.moviefinder.Adapter.SearchMovieAdapter;
 import com.example.sanzarouth.moviefinder.Model.MovieList;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
@@ -23,7 +22,7 @@ import retrofit2.Response;
 
 public class SearchResults extends AppCompatActivity {
 
-    private NewAdapter adapter;
+    private SearchMovieAdapter adapter;
     private ListView lv;
     private ArrayList<SearchedMovie> searchedMovies;
 
@@ -36,20 +35,27 @@ public class SearchResults extends AppCompatActivity {
 
         searchedMovies = new ArrayList<SearchedMovie>();
 
+        SearchView searchView = (SearchView) findViewById(R.id.searchView);
+        String query = getIntent().getExtras().getString("query");
+
+        System.out.println(query);
+
         GetMovieDataService service = RetrofitInstance.getRetrofitInstance().create(GetMovieDataService.class);
 
-        Call<MovieList> call = service.getMovies();
+        Call<MovieList> call = service.getMovies(query, "full", MovieFinderActivity.KEY);
+
+        System.out.println(call.request().url() + "    JDJADJS D AJIDJASIDJASD ");
 
         lv = (ListView) findViewById(R.id.moviesList);
 
-        adapter = new NewAdapter(SearchResults.this, searchedMovies);
+        adapter = new SearchMovieAdapter(SearchResults.this, searchedMovies);
 
         lv.setAdapter(adapter);
 
         call.enqueue(new Callback<MovieList>() {
             @Override
             public void onResponse(Call<MovieList> call, Response<MovieList> response) {
-                searchedMovies.addAll(response.body().getEmployeeArrayList());
+                searchedMovies.addAll(response.body().getMovieList());
                 adapter.notifyDataSetChanged();
             }
 

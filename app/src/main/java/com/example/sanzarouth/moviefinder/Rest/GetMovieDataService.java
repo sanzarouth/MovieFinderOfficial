@@ -12,8 +12,10 @@ import retrofit2.http.Query;
 
 public interface GetMovieDataService {
 
-    @GET("?s=snow+white&plot=full&apikey=893bb7ef")
-    Call<MovieList> getMovies();
+    // http://www.omdbapi.com/?s=snow+white&plot=full&apikey=893bb7ef
+
+    @GET("/")
+    Call<MovieList> getMovies(@Query("s") String title, @Query("plot") String plot, @Query("apikey") String key);
 
     @GET("?t=/{title}&plot=full{key}")
     Call<Movie> getMovie(String title, String key);

@@ -13,6 +13,8 @@ import com.example.sanzarouth.moviefinder.R;
 
 public class MovieFinderActivity extends AppCompatActivity implements View.OnClickListener {
 
+    protected static String KEY = "893bb7ef";
+
     //TODO: Use Butterknife for view injection
 
     @Override

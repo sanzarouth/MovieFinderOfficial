@@ -10,22 +10,31 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.sanzarouth.moviefinder.Model.Movie;
+import com.example.sanzarouth.moviefinder.Model.MovieList;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
+import com.example.sanzarouth.moviefinder.Rest.GetMovieDataService;
+import com.example.sanzarouth.moviefinder.Rest.RetrofitInstance;
+import com.example.sanzarouth.moviefinder.View.SearchResults;
 
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class NewAdapter extends BaseAdapter {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class SearchMovieAdapter extends BaseAdapter {
 
     LayoutInflater mInflator;
     ArrayList<SearchedMovie> movies;
 
-    public NewAdapter(Context c, ArrayList<SearchedMovie> movies) {
+    public SearchMovieAdapter(Context c, ArrayList<SearchedMovie> movies) {
         this.movies = movies;
         mInflator = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -62,6 +71,30 @@ public class NewAdapter extends BaseAdapter {
         } else {
             Glide.with(v.getContext()).load(movie.getPoster()).into(moviePoster);
         }
+
+        // Click on single movie for more info on that movie
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+//                GetMovieDataService service = RetrofitInstance.getRetrofitInstance().create(GetMovieDataService.class);
+
+//                Call<MovieList> call = service.getMovie();
+
+//                call.enqueue(new Callback<MovieList>() {
+//                    @Override
+//                    public void onResponse(Call<MovieList> call, Response<MovieList> response) {
+//                        ;
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<MovieList> call, Throwable t) {
+//                        Toast.makeText(view.getContext(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+            }
+        });
+
         return v;
     }
 

@@ -3,34 +3,18 @@ package com.example.sanzarouth.moviefinder.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.sanzarouth.moviefinder.Adapter.NewAdapter;
-import com.example.sanzarouth.moviefinder.Model.Movie;
-import com.example.sanzarouth.moviefinder.Model.MovieList;
-import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
+import com.example.sanzarouth.moviefinder.OldCode.ResultsActivity;
 import com.example.sanzarouth.moviefinder.R;
-import com.example.sanzarouth.moviefinder.Rest.GetMovieDataService;
-import com.example.sanzarouth.moviefinder.Rest.RetrofitInstance;
-
-import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -79,8 +63,11 @@ public class SearchActivity extends AppCompatActivity {
 
                 String query = searchView.getQuery().toString();
 
-                Intent searchIntent = new Intent(getApplicationContext(), SearchResults.class);
-                startActivity(searchIntent);
+                Intent resultsIntent = new Intent(getApplicationContext(), SearchResults.class);
+
+                resultsIntent.putExtra("query", query);
+
+                startActivityForResult(resultsIntent, RESULT_REQUEST);
 
             }
         });
