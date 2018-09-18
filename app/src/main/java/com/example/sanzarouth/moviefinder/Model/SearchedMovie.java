@@ -8,13 +8,13 @@ import java.util.ArrayList;
 public class SearchedMovie {
 
     @SerializedName("Title")
-    String movieTitle;
+    private String movieTitle;
 
     @SerializedName("Year")
-    String year;
+    private String year;
 
     @SerializedName("Poster")
-    String poster;
+    private String poster;
 
     static int ID = 0;
 
@@ -39,12 +39,6 @@ public class SearchedMovie {
 
     public int getID() {
         return ID;
-    }
-
-    //Setters
-
-    public void setPoster(String poster) {
-        this.poster = poster;
     }
 
     //toString
