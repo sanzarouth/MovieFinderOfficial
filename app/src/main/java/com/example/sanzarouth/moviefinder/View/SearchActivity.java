@@ -47,13 +47,13 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_page);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
         searchView = (SearchView) findViewById(R.id.searchView);
         spinner = (ProgressBar) findViewById(R.id.progressBar1);
         genreSpinner = (Spinner) findViewById(R.id.genreSpinner);
         spinnerHolder = (RelativeLayout) findViewById(R.id.spinnerHolder);
-
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
 
         if(getIntent().hasExtra("searchType")){
             String chosen = getIntent().getExtras().getString("searchType");

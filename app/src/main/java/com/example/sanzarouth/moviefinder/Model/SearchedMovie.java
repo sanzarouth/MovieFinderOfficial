@@ -33,6 +33,10 @@ public class SearchedMovie {
         return poster;
     }
 
+    public String getYear() {
+        return year;
+    }
+
     public int getID() {
         return ID;
     }
@@ -46,7 +50,7 @@ public class SearchedMovie {
     //toString
 
     public String toString(){
-        return movieTitle; // + "\n" + year + "\n" + director + "\n" + genre + "\n" + plot + "\n" + cast + "\n" + boxOffice + "\n" + awards + "\n" + poster;
+        return movieTitle;
     }
 
 

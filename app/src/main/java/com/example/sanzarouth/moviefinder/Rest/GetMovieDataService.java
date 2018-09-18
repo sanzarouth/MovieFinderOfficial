@@ -12,7 +12,7 @@ import retrofit2.http.Query;
 
 public interface GetMovieDataService {
 
-    @GET("?s=dex&plot=full&apikey=893bb7ef")
+    @GET("?s=snow+white&plot=full&apikey=893bb7ef")
     Call<MovieList> getMovies();
 
     @GET("?t=/{title}&plot=full{key}")

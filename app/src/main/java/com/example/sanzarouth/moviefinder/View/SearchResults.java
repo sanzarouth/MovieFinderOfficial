@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.sanzarouth.moviefinder.Adapter.NewAdapter;
@@ -22,28 +24,25 @@ import retrofit2.Response;
 public class SearchResults extends AppCompatActivity {
 
     private NewAdapter adapter;
-    private RecyclerView lv;
+    private ListView lv;
     private ArrayList<SearchedMovie> searchedMovies;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_results);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         searchedMovies = new ArrayList<SearchedMovie>();
 
         GetMovieDataService service = RetrofitInstance.getRetrofitInstance().create(GetMovieDataService.class);
 
-        /*Call the method with parameter in the interface to get the employee data*/
         Call<MovieList> call = service.getMovies();
 
-        lv = (RecyclerView) findViewById(R.id.moviesList);
+        lv = (ListView) findViewById(R.id.moviesList);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SearchResults.this);
-
-        lv.setLayoutManager(layoutManager);
-
-        adapter = new NewAdapter(searchedMovies);
+        adapter = new NewAdapter(SearchResults.this, searchedMovies);
 
         lv.setAdapter(adapter);
 
@@ -52,7 +51,6 @@ public class SearchResults extends AppCompatActivity {
             public void onResponse(Call<MovieList> call, Response<MovieList> response) {
                 searchedMovies.addAll(response.body().getEmployeeArrayList());
                 adapter.notifyDataSetChanged();
-
             }
 
             @Override

@@ -1,60 +1,70 @@
 package com.example.sanzarouth.moviefinder.Adapter;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.DrawableWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.sanzarouth.moviefinder.Model.Movie;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
-import com.example.sanzarouth.moviefinder.Model.Movie;
 
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class NewAdapter extends RecyclerView.Adapter<NewAdapter.EmployeeViewHolder> {
+public class NewAdapter extends BaseAdapter {
 
-    private ArrayList<SearchedMovie> dataList;
+    LayoutInflater mInflator;
+    ArrayList<SearchedMovie> movies;
 
-    public NewAdapter(ArrayList<SearchedMovie> dataList) {
-        this.dataList = dataList;
+    public NewAdapter(Context c, ArrayList<SearchedMovie> movies) {
+        this.movies = movies;
+        mInflator = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
-    public EmployeeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.movie_detail, parent, false);
-        return new EmployeeViewHolder(view);
+    public int getCount() {
+        return movies.size();
     }
 
     @Override
-    public void onBindViewHolder(EmployeeViewHolder holder, int position) {
-        holder.movieTitle.setText(dataList.get(position).getMovieTitle());
-        holder.imageView.setImageDrawable(loadImageFromWeb(dataList.get(position).getPoster()));
+    public Object getItem(int i) {
+        return movies.get(i);
     }
 
     @Override
-    public int getItemCount() {
-        return dataList.size();
+    public long getItemId(int i) {
+        return movies.get(i).getID();
     }
 
-    class EmployeeViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public View getView(int i, View view, ViewGroup viewGroup) {
+        View v = mInflator.inflate(R.layout.movie_detail, null);
 
-        TextView movieTitle;
-        ImageView imageView;
+        ImageView moviePoster = (ImageView) v.findViewById(R.id.imageView);
+        TextView movieTitle = (TextView) v.findViewById(R.id.movieTitle);
+        TextView movieYear = (TextView) v.findViewById(R.id.movieYear);
 
-        EmployeeViewHolder(View itemView) {
-            super(itemView);
-            movieTitle = (TextView) itemView.findViewById(R.id.movieTitle);
-            imageView = (ImageView) itemView.findViewById(R.id.imageView);
+        SearchedMovie movie = movies.get(i);
+
+        movieTitle.setText(movie.getMovieTitle());
+        movieYear.setText(movie.getYear());
+        if(movie.getPoster().equals("N/A")){
+            moviePoster.setImageResource(R.drawable.logo);
+        } else {
+            moviePoster.setImageDrawable(loadImageFromWeb(movie.getPoster()));
         }
+        return v;
     }
 
-    public static Drawable loadImageFromWeb(String url) {
+    private Drawable loadImageFromWeb(String url) {
         try {
             InputStream is = (InputStream) new URL(url).getContent();
             Drawable d = Drawable.createFromStream(is, "src name");
@@ -63,5 +73,4 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.EmployeeViewHold
             return null;
         }
     }
-
 }
