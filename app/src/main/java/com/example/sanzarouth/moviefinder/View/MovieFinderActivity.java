@@ -1,4 +1,4 @@
-package com.example.sanzarouth.moviefinder.Activity;
+package com.example.sanzarouth.moviefinder.View;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

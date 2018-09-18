@@ -1,4 +1,4 @@
-package com.example.sanzarouth.moviefinder;
+package com.example.sanzarouth.moviefinder.OldCode;
 
 import android.os.StrictMode;
 
@@ -13,12 +13,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class OMDbAPICall {
 
     //TODO: create another class OMDbRetrofitAPICall and make the same network call using Retrofit
 
     protected static String URL = "http://www.omdbapi.com/";
     protected static String KEY = "&apikey=893bb7ef";
+
 
     public static ArrayList<Movie> getMovies(JSONArray response){
         ArrayList<Movie> movies = new ArrayList<Movie>();

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_weight="1"
     android:orientation="vertical"
-    tools:context=".Activity.MovieFinderActivity">
+    tools:context=".View.MovieFinderActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -17,7 +17,7 @@
         android:theme="@style/MyStyle"
         app:titleTextAppearance="@style/MyStyle" />
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/moviesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

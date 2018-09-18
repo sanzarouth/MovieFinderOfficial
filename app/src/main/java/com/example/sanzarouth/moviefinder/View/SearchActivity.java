@@ -1,20 +1,36 @@
-package com.example.sanzarouth.moviefinder.Activity;
+package com.example.sanzarouth.moviefinder.View;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.sanzarouth.moviefinder.OMDbAPICall;
+import com.example.sanzarouth.moviefinder.Adapter.NewAdapter;
+import com.example.sanzarouth.moviefinder.Model.Movie;
+import com.example.sanzarouth.moviefinder.Model.MovieList;
+import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
+import com.example.sanzarouth.moviefinder.Rest.GetMovieDataService;
+import com.example.sanzarouth.moviefinder.Rest.RetrofitInstance;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -45,34 +61,13 @@ public class SearchActivity extends AppCompatActivity {
             ImageView selectedSearchImage = (ImageView) findViewById(R.id.selectedSearchImage);
             TextView selectedSearchText = (TextView) findViewById(R.id.selectedSearchText);
 
-            if(chosen.equals("Genre")) {
-                genreSpinner.setVisibility(View.VISIBLE);
-                searchView.setVisibility(View.GONE);
-                spinnerHolder.setVisibility(View.VISIBLE);
-            } else {
-                genreSpinner.setVisibility(View.GONE);
-                searchView.setVisibility(View.VISIBLE);
-                spinnerHolder.setVisibility(View.GONE);
-            }
+            genreSpinner.setVisibility(View.GONE);
+            searchView.setVisibility(View.VISIBLE);
+            spinnerHolder.setVisibility(View.GONE);
 
             if(chosen.equals("Title")) {
                 selectedSearchImage.setImageResource(R.drawable.title_background);
                 selectedSearchText.setText(R.string.title);
-            } else if (chosen.equals("Actor")) {
-                selectedSearchImage.setImageResource(R.drawable.actor_background);
-                selectedSearchText.setText(R.string.actor);
-            } else if (chosen.equals("Genre")) {
-                selectedSearchImage.setImageResource(R.drawable.genre_background);
-                selectedSearchText.setText(R.string.genre);
-            } else if (chosen.equals("Year")) {
-                selectedSearchImage.setImageResource(R.drawable.year_background);
-                selectedSearchText.setText(R.string.year);
-            } else if (chosen.equals("Director")) {
-                selectedSearchImage.setImageResource(R.drawable.director_background);
-                selectedSearchText.setText(R.string.director);
-            } else {
-                selectedSearchImage.setImageResource(R.drawable.box_office_background);
-                selectedSearchText.setText(R.string.box_office);
             }
         }
 
@@ -84,13 +79,9 @@ public class SearchActivity extends AppCompatActivity {
 
                 String query = searchView.getQuery().toString();
 
-                String response = OMDbAPICall.sendGet("?s=", query);
+                Intent searchIntent = new Intent(getApplicationContext(), SearchResults.class);
+                startActivity(searchIntent);
 
-                Intent resultsIntent = new Intent(getApplicationContext(), ResultsActivity.class);
-
-                resultsIntent.putExtra("queryResponse", response);
-
-                startActivityForResult(resultsIntent, RESULT_REQUEST);
             }
         });
 

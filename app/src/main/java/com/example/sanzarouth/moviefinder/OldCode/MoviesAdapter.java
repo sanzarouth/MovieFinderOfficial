@@ -1,4 +1,4 @@
-package com.example.sanzarouth.moviefinder.Adapter;
+package com.example.sanzarouth.moviefinder.OldCode;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

@@ -1,13 +1,10 @@
-package com.example.sanzarouth.moviefinder.Activity;
+package com.example.sanzarouth.moviefinder.OldCode;
 
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.sanzarouth.moviefinder.R;
