@@ -1,6 +1,7 @@
 package com.example.sanzarouth.moviefinder.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.DrawableWrapper;
 import android.view.LayoutInflater;
@@ -19,6 +20,8 @@ import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
 import com.example.sanzarouth.moviefinder.Rest.GetMovieDataService;
 import com.example.sanzarouth.moviefinder.Rest.RetrofitInstance;
+import com.example.sanzarouth.moviefinder.View.FullMovie;
+import com.example.sanzarouth.moviefinder.View.SearchActivity;
 import com.example.sanzarouth.moviefinder.View.SearchResults;
 
 import java.io.InputStream;
@@ -33,9 +36,11 @@ public class SearchMovieAdapter extends BaseAdapter {
 
     LayoutInflater mInflator;
     ArrayList<SearchedMovie> movies;
+    Context context;
 
     public SearchMovieAdapter(Context c, ArrayList<SearchedMovie> movies) {
         this.movies = movies;
+        this.context = c;
         mInflator = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -59,10 +64,10 @@ public class SearchMovieAdapter extends BaseAdapter {
         View v = mInflator.inflate(R.layout.movie_detail, null);
 
         ImageView moviePoster = (ImageView) v.findViewById(R.id.imageView);
-        TextView movieTitle = (TextView) v.findViewById(R.id.movieTitle);
+        final TextView movieTitle = (TextView) v.findViewById(R.id.movieTitle);
         TextView movieYear = (TextView) v.findViewById(R.id.movieYear);
 
-        SearchedMovie movie = movies.get(i);
+        final SearchedMovie movie = movies.get(i);
 
         movieTitle.setText(movie.getMovieTitle());
         movieYear.setText(movie.getYear());
@@ -77,21 +82,9 @@ public class SearchMovieAdapter extends BaseAdapter {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-//                GetMovieDataService service = RetrofitInstance.getRetrofitInstance().create(GetMovieDataService.class);
-
-//                Call<MovieList> call = service.getMovie();
-
-//                call.enqueue(new Callback<MovieList>() {
-//                    @Override
-//                    public void onResponse(Call<MovieList> call, Response<MovieList> response) {
-//                        ;
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<MovieList> call, Throwable t) {
-//                        Toast.makeText(view.getContext(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+                Intent fullMovieIntent = new Intent(context, FullMovie.class);
+                fullMovieIntent.putExtra("movieTitle", movie.getMovieTitle());
+                context.startActivity(fullMovieIntent);
             }
         });
 
