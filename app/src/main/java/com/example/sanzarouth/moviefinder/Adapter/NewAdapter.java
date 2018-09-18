@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.sanzarouth.moviefinder.Model.Movie;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
@@ -59,7 +60,7 @@ public class NewAdapter extends BaseAdapter {
         if(movie.getPoster().equals("N/A")){
             moviePoster.setImageResource(R.drawable.logo);
         } else {
-            moviePoster.setImageDrawable(loadImageFromWeb(movie.getPoster()));
+            Glide.with(v.getContext()).load(movie.getPoster()).into(moviePoster);
         }
         return v;
     }
