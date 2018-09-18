@@ -1,7 +1,6 @@
-package com.example.sanzarouth.moviefinder;
+package com.example.sanzarouth.moviefinder.OldCode;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.example.sanzarouth.moviefinder.Model.Movie;
+import com.example.sanzarouth.moviefinder.R;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -47,13 +47,13 @@ public class MoviesAdapter extends BaseAdapter {
 
         ImageView moviePoster = (ImageView) v.findViewById(R.id.imageView);
         TextView movieTitle = (TextView) v.findViewById(R.id.movieTitle);
-        TextView movieGenre = (TextView) v.findViewById(R.id.movieGenre);
+//        TextView movieGenre = (TextView) v.findViewById(R.id.movieGenre);
         TextView movieYear = (TextView) v.findViewById(R.id.movieYear);
 
         Movie movie = movies.get(i);
 
         movieTitle.setText(movie.getMovieTitle());
-        movieGenre.setText(movie.getGenre());
+//        movieGenre.setText(movie.getGenre());
         movieYear.setText(movie.getYear());
         if(movie.getPoster().equals("N/A")){
             moviePoster.setImageResource(R.drawable.logo);

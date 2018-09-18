@@ -1,7 +1,8 @@
-package com.example.sanzarouth.moviefinder;
+package com.example.sanzarouth.moviefinder.OldCode;
 
-import android.media.Image;
 import android.os.StrictMode;
+
+import com.example.sanzarouth.moviefinder.Model.Movie;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,9 +11,14 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Stack;
+
+import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class OMDbAPICall {
 
@@ -20,6 +26,7 @@ public class OMDbAPICall {
 
     protected static String URL = "http://www.omdbapi.com/";
     protected static String KEY = "&apikey=893bb7ef";
+
 
     public static ArrayList<Movie> getMovies(JSONArray response){
         ArrayList<Movie> movies = new ArrayList<Movie>();
@@ -109,6 +116,7 @@ public class OMDbAPICall {
         String response = "";
         try {
             link = new URL(URL + searchType + field + "&plot=full" + KEY);
+            System.out.println(link);
             HttpURLConnection connection = (HttpURLConnection) link.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Content-Type", "application/json");

@@ -1,27 +1,19 @@
-package com.example.sanzarouth.moviefinder;
+package com.example.sanzarouth.moviefinder.View;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.speech.tts.TextToSpeech;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
+import com.example.sanzarouth.moviefinder.R;
 
 public class MovieFinderActivity extends AppCompatActivity implements View.OnClickListener {
+
+    protected static String KEY = "893bb7ef";
 
     //TODO: Use Butterknife for view injection
 

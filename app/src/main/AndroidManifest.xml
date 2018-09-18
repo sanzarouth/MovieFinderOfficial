@@ -11,15 +11,17 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         android:background="@color/background">
-        <activity android:name=".MovieFinderActivity">
+        <activity android:name=".View.MovieFinderActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchActivity"></activity>
-        <activity android:name=".ResultsActivity"></activity>
-        <activity android:name=".FullMovieInfoActivity"></activity>
+        <activity android:name=".View.SearchActivity"></activity>
+        <activity android:name=".OldCode.ResultsActivity"></activity>
+        <activity android:name=".OldCode.FullMovieInfoActivity"></activity>
+        <activity android:name=".View.SearchResults"></activity>
+        <activity android:name=".View.FullMovie"></activity>
     </application>
 
 </manifest>
