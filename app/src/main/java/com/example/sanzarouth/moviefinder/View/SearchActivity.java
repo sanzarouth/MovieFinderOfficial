@@ -87,9 +87,7 @@ public class SearchActivity extends AppCompatActivity {
                     break;
 
             }
-
         }
-
     }
 
     @OnClick(R.id.searchButton)
