@@ -26,6 +26,9 @@ public class SearchResults extends AppCompatActivity {
     @BindView(R.id.moviesList)
     ListView lv;
 
+    @BindView(R.id.my_toolbar)
+    Toolbar myToolbar;
+    
     private SearchMovieAdapter adapter;
     private ArrayList<SearchedMovie> searchedMovies;
 
@@ -33,10 +36,10 @@ public class SearchResults extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_results);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
 
         ButterKnife.bind(this);
+
+        setSupportActionBar(myToolbar);
 
         searchedMovies = new ArrayList<SearchedMovie>();
 

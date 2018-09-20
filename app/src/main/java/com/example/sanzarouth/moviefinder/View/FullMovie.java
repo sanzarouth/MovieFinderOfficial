@@ -52,6 +52,9 @@ public class FullMovie extends AppCompatActivity {
     @BindView(R.id.fullSummary)
     TextView fullSummary;
 
+    @BindView(R.id.my_toolbar)
+    Toolbar myToolbar;
+
     List<TextView> views;
 
 
@@ -62,12 +65,10 @@ public class FullMovie extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
         GetMovieDataService service = RetrofitInstance.getRetrofitInstance().create(GetMovieDataService.class);
-
         Call<Movie> call = service.getMovie(getIntent().getStringExtra("movieTitle"), "full", MovieFinderActivity.KEY);
-
         call.enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
