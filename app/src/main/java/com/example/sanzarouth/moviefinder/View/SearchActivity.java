@@ -1,6 +1,7 @@
 package com.example.sanzarouth.moviefinder.View;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -71,40 +72,38 @@ public class SearchActivity extends AppCompatActivity {
                 ButterKnife.apply(genreSpinner, VISIBILITY, View.GONE);
             }
 
-            if(chosen.equals("Title")) {
-                selectedSearchImage.setImageResource(R.drawable.title_background);
-                selectedSearchText.setText(R.string.title);
-            } else if (chosen.equals("Actor")) {
-                selectedSearchImage.setImageResource(R.drawable.actor_background);
-                selectedSearchText.setText(R.string.actor);
-            } else if (chosen.equals("Genre")) {
-                selectedSearchImage.setImageResource(R.drawable.genre_background);
-                selectedSearchText.setText(R.string.genre);
-            } else if (chosen.equals("Year")) {
-                selectedSearchImage.setImageResource(R.drawable.year_background);
-                selectedSearchText.setText(R.string.year);
-            } else if (chosen.equals("Director")) {
-                selectedSearchImage.setImageResource(R.drawable.director_background);
-                selectedSearchText.setText(R.string.director);
-            } else {
-                selectedSearchImage.setImageResource(R.drawable.box_office_background);
-                selectedSearchText.setText(R.string.box_office);
+            switch (chosen) {
+                case "Title":
+                    setImageAndText(R.drawable.title_background, R.string.title);
+                    break;
+                case "Actor":
+                    setImageAndText(R.drawable.actor_background, R.string.actor);
+                    break;
+                case "Genre":
+                    setImageAndText(R.drawable.genre_background, R.string.genre);
+                    break;
+                case "Year":
+                    setImageAndText(R.drawable.year_background, R.string.year);
+                    break;
+                case "Director":
+                    setImageAndText(R.drawable.director_background, R.string.director);
+                    break;
+                default:
+                    setImageAndText(R.drawable.box_office_background, R.string.box_office);
+                    break;
+
             }
+
         }
-
-
+        
     }
 
     @OnClick(R.id.searchButton)
-    public void onClick() {
+    private void onClick() {
         spinner.setVisibility(View.VISIBLE);
-
         String query = searchView.getQuery().toString();
-
         Intent resultsIntent = new Intent(getApplicationContext(), SearchResults.class);
-
         resultsIntent.putExtra("query", query);
-
         startActivityForResult(resultsIntent, RESULT_REQUEST);
     }
 
@@ -118,10 +117,15 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
-    public static final ButterKnife.Setter<View, Integer> VISIBILITY = new ButterKnife.Setter<View, Integer>() {
+    private static final ButterKnife.Setter<View, Integer> VISIBILITY = new ButterKnife.Setter<View, Integer>() {
         @Override
         public void set(@NonNull View view, Integer value, int index) {
             view.setVisibility(value);
         }
     };
+
+    private void setImageAndText(int drawableId, int title) {
+        selectedSearchImage.setImageResource(drawableId);
+        selectedSearchText.setText(title);
+    }
 }
