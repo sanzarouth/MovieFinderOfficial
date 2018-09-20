@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sanzarouth.moviefinder.Adapter.SearchMovieAdapter;
@@ -26,6 +27,12 @@ public class SearchResults extends AppCompatActivity {
     @BindView(R.id.moviesList)
     ListView lv;
 
+    @BindView(R.id.my_toolbar)
+    Toolbar myToolbar;
+
+    @BindView(R.id.noResult)
+    TextView noResult;
+
     private SearchMovieAdapter adapter;
     private ArrayList<SearchedMovie> searchedMovies;
 
@@ -33,10 +40,10 @@ public class SearchResults extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_results);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
 
         ButterKnife.bind(this);
+
+        setSupportActionBar(myToolbar);
 
         searchedMovies = new ArrayList<SearchedMovie>();
 
@@ -51,6 +58,11 @@ public class SearchResults extends AppCompatActivity {
         call.enqueue(new Callback<MovieList>() {
             @Override
             public void onResponse(Call<MovieList> call, Response<MovieList> response) {
+                if(response.body().getMovieList() == null) {
+                    noResult.setText("Sorry, no results! :(");
+                    return;
+                }
+                noResult.setText("");
                 searchedMovies.addAll(response.body().getMovieList());
                 adapter.notifyDataSetChanged();
             }
