@@ -2,33 +2,22 @@ package com.example.sanzarouth.moviefinder.View;
 
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.BinderThread;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.sanzarouth.moviefinder.Model.Movie;
-import com.example.sanzarouth.moviefinder.Model.MovieList;
-import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
 import com.example.sanzarouth.moviefinder.Rest.GetMovieDataService;
 import com.example.sanzarouth.moviefinder.Rest.RetrofitInstance;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindFloat;
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
