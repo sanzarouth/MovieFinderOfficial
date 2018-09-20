@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
-import com.example.sanzarouth.moviefinder.View.FullMovie;
+import com.example.sanzarouth.moviefinder.View.FullMovieActivity;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -69,7 +69,7 @@ public class SearchMovieAdapter extends BaseAdapter {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                Intent fullMovieIntent = new Intent(context, FullMovie.class);
+                Intent fullMovieIntent = new Intent(context, FullMovieActivity.class);
                 fullMovieIntent.putExtra("movieTitle", movie.getMovieTitle());
                 context.startActivity(fullMovieIntent);
             }

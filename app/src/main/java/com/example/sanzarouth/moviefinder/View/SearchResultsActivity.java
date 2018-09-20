@@ -22,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchResults extends AppCompatActivity {
+public class SearchResultsActivity extends AppCompatActivity {
 
     @BindView(R.id.moviesList)
     ListView lv;
@@ -52,7 +52,7 @@ public class SearchResults extends AppCompatActivity {
         GetMovieDataService service = RetrofitInstance.getRetrofitInstance().create(GetMovieDataService.class);
         Call<MovieList> call = service.getMovies(query, "full", MovieFinderActivity.KEY);
 
-        adapter = new SearchMovieAdapter(SearchResults.this, searchedMovies);
+        adapter = new SearchMovieAdapter(SearchResultsActivity.this, searchedMovies);
         lv.setAdapter(adapter);
 
         call.enqueue(new Callback<MovieList>() {
@@ -69,7 +69,7 @@ public class SearchResults extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<MovieList> call, Throwable t) {
-                Toast.makeText(SearchResults.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SearchResultsActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
             }
         });
 
