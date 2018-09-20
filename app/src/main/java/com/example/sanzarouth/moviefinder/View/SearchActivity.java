@@ -95,11 +95,11 @@ public class SearchActivity extends AppCompatActivity {
             }
 
         }
-        
+
     }
 
     @OnClick(R.id.searchButton)
-    private void onClick() {
+    public void onClick() {
         spinner.setVisibility(View.VISIBLE);
         String query = searchView.getQuery().toString();
         Intent resultsIntent = new Intent(getApplicationContext(), SearchResults.class);

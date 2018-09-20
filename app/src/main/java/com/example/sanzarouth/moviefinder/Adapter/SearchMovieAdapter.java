@@ -28,6 +28,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
+import butterknife.BindFloat;
+import butterknife.BindView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

@@ -4,8 +4,10 @@ package com.example.sanzarouth.moviefinder.View;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.BinderThread;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -22,31 +24,57 @@ import com.example.sanzarouth.moviefinder.Rest.RetrofitInstance;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
+import butterknife.BindFloat;
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FullMovie extends AppCompatActivity {
 
+    @BindView(R.id.imageViewFull)
+    ImageView imageViewFull;
+
+    @BindView(R.id.movieTitleFull)
+    TextView movieTitleFull;
+
+    @BindView(R.id.movieGenreFull)
+    TextView movieGenreFull;
+
+    @BindView(R.id.movieYearFull)
+    TextView movieYearFull;
+
+    @BindView(R.id.directorFull)
+    TextView directorFull;
+
+    @BindView(R.id.fullCast)
+    TextView fullCast;
+
+    @BindView(R.id.fullBoxOffice)
+    TextView fullBoxOffice;
+
+    @BindView(R.id.fullAwards)
+    TextView fullAwards;
+
+    @BindView(R.id.fullSummary)
+    TextView fullSummary;
+
+    List<TextView> views;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_profile);
 
+        ButterKnife.bind(this);
+
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-
-        final ImageView imageViewFull = (ImageView) findViewById(R.id.imageViewFull);
-        final TextView movieTitleFull = (TextView) findViewById(R.id.movieTitleFull);
-        final TextView movieGenreFull = (TextView) findViewById(R.id.movieGenreFull);
-        final TextView movieYearFull = (TextView) findViewById(R.id.movieYearFull);
-        final TextView directorFull = (TextView) findViewById(R.id.directorFull);
-        final TextView fullCast = (TextView) findViewById(R.id.fullCast);
-        final TextView fullBoxOffice = (TextView) findViewById(R.id.fullBoxOffice);
-        final TextView fullAwards = (TextView) findViewById(R.id.fullAwards);
-        final TextView fullSummary = (TextView) findViewById(R.id.fullSummary);
-
         GetMovieDataService service = RetrofitInstance.getRetrofitInstance().create(GetMovieDataService.class);
 
         Call<Movie> call = service.getMovie(getIntent().getStringExtra("movieTitle"), "full", MovieFinderActivity.KEY);
@@ -55,12 +83,14 @@ public class FullMovie extends AppCompatActivity {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
                 Movie toShow = response.body();
+
                 if(toShow.getPoster().equals("N/A")){
                     imageViewFull.setImageResource(R.drawable.logo);
                 } else {
                     Context c = getApplicationContext();
                     Glide.with(FullMovie.this).load(toShow.getPoster()).into(imageViewFull);
                 }
+
                 movieTitleFull.setText(toShow.getMovieTitle());
                 movieGenreFull.setText(toShow.getGenre());
                 movieYearFull.setText(toShow.getYear());
@@ -69,6 +99,7 @@ public class FullMovie extends AppCompatActivity {
                 fullBoxOffice.setText(toShow.getBoxOffice());
                 fullAwards.setText(toShow.getAwards());
                 fullSummary.setText(toShow.getPlot());
+
             }
 
             @Override
@@ -76,7 +107,6 @@ public class FullMovie extends AppCompatActivity {
                 Toast.makeText(FullMovie.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
             }
         });
-
 
     }
 
