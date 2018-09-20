@@ -87,16 +87,14 @@ public class SearchActivity extends AppCompatActivity {
                     break;
 
             }
-
         }
-
     }
 
     @OnClick(R.id.searchButton)
     public void onClick() {
         spinner.setVisibility(View.VISIBLE);
         String query = searchView.getQuery().toString();
-        Intent resultsIntent = new Intent(getApplicationContext(), SearchResults.class);
+        Intent resultsIntent = new Intent(getApplicationContext(), SearchResultsActivity.class);
         resultsIntent.putExtra("query", query);
         startActivityForResult(resultsIntent, RESULT_REQUEST);
     }

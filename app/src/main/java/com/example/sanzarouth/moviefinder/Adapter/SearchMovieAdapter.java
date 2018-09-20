@@ -13,13 +13,26 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
-import com.example.sanzarouth.moviefinder.View.FullMovie;
+import com.example.sanzarouth.moviefinder.View.FullMovieActivity;
 
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
+import butterknife.BindFloat;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class SearchMovieAdapter extends BaseAdapter {
+
+    @BindView(R.id.imageView)
+    ImageView moviePoster;
+
+    @BindView(R.id.movieTitle)
+    TextView movieTitle;
+
+    @BindView(R.id.movieYear)
+    TextView movieYear;
 
     LayoutInflater mInflator;
     ArrayList<SearchedMovie> movies;
@@ -50,26 +63,23 @@ public class SearchMovieAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         View v = mInflator.inflate(R.layout.movie_detail, null);
 
-        ImageView moviePoster = (ImageView) v.findViewById(R.id.imageView);
-        final TextView movieTitle = (TextView) v.findViewById(R.id.movieTitle);
-        TextView movieYear = (TextView) v.findViewById(R.id.movieYear);
+        ButterKnife.bind(this,v);
 
         final SearchedMovie movie = movies.get(i);
 
         movieTitle.setText(movie.getMovieTitle());
         movieYear.setText(movie.getYear());
+
         if(movie.getPoster().equals("N/A")){
             moviePoster.setImageResource(R.drawable.logo);
         } else {
             Glide.with(v.getContext()).load(movie.getPoster()).into(moviePoster);
         }
 
-        // Click on single movie for more info on that movie
-
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                Intent fullMovieIntent = new Intent(context, FullMovie.class);
+                Intent fullMovieIntent = new Intent(context, FullMovieActivity.class);
                 fullMovieIntent.putExtra("movieTitle", movie.getMovieTitle());
                 context.startActivity(fullMovieIntent);
             }
@@ -78,13 +88,4 @@ public class SearchMovieAdapter extends BaseAdapter {
         return v;
     }
 
-    private Drawable loadImageFromWeb(String url) {
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
-        } catch (Exception e) {
-            return null;
-        }
-    }
 }
