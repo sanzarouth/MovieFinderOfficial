@@ -3,34 +3,21 @@ package com.example.sanzarouth.moviefinder.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.DrawableWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.sanzarouth.moviefinder.Model.Movie;
-import com.example.sanzarouth.moviefinder.Model.MovieList;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
-import com.example.sanzarouth.moviefinder.Rest.GetMovieDataService;
-import com.example.sanzarouth.moviefinder.Rest.RetrofitInstance;
 import com.example.sanzarouth.moviefinder.View.FullMovie;
-import com.example.sanzarouth.moviefinder.View.SearchActivity;
-import com.example.sanzarouth.moviefinder.View.SearchResults;
 
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class SearchMovieAdapter extends BaseAdapter {
 

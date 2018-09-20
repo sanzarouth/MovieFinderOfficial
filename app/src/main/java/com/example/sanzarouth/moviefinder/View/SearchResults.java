@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.sanzarouth.moviefinder.Adapter.SearchMovieAdapter;
@@ -16,14 +15,18 @@ import com.example.sanzarouth.moviefinder.Rest.RetrofitInstance;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SearchResults extends AppCompatActivity {
 
+    @BindView(R.id.moviesList)
+    ListView lv;
+
     private SearchMovieAdapter adapter;
-    private ListView lv;
     private ArrayList<SearchedMovie> searchedMovies;
 
     @Override
@@ -33,19 +36,16 @@ public class SearchResults extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
+        ButterKnife.bind(this);
+
         searchedMovies = new ArrayList<SearchedMovie>();
 
-        SearchView searchView = (SearchView) findViewById(R.id.searchView);
         String query = getIntent().getExtras().getString("query");
 
         GetMovieDataService service = RetrofitInstance.getRetrofitInstance().create(GetMovieDataService.class);
-
         Call<MovieList> call = service.getMovies(query, "full", MovieFinderActivity.KEY);
 
-        lv = (ListView) findViewById(R.id.moviesList);
-
         adapter = new SearchMovieAdapter(SearchResults.this, searchedMovies);
-
         lv.setAdapter(adapter);
 
         call.enqueue(new Callback<MovieList>() {

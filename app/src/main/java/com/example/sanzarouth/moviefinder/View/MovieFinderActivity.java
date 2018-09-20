@@ -1,81 +1,74 @@
 package com.example.sanzarouth.moviefinder.View;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.sanzarouth.moviefinder.R;
 
-public class MovieFinderActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class MovieFinderActivity extends AppCompatActivity {
 
     protected static String KEY = "893bb7ef";
 
-    //TODO: Use Butterknife for view injection
+    @BindViews({ R.id.titleSelection, R.id.actorSelection, R.id.genreSelection, R.id.yearSelection, R.id.directorSelection, R.id.boxOfficeSelection })
+    List<LinearLayout> layouts;
+
+    @BindView(R.id.my_toolbar)
+    Toolbar myToolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_finder);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        ButterKnife.bind(this);
+
         setSupportActionBar(myToolbar);
-
-
-        LinearLayout titleSelect = (LinearLayout) findViewById(R.id.titleSelection);
-        titleSelect.setOnClickListener(this);
-        LinearLayout actorSelect = (LinearLayout) findViewById(R.id.actorSelection);
-        actorSelect.setOnClickListener(this);
-        LinearLayout genreSelect = (LinearLayout) findViewById(R.id.genreSelection);
-        genreSelect.setOnClickListener(this);
-        LinearLayout yearSelect = (LinearLayout) findViewById(R.id.yearSelection);
-        yearSelect.setOnClickListener(this);
-        LinearLayout directorSelect = (LinearLayout) findViewById(R.id.directorSelection);
-        directorSelect.setOnClickListener(this);
-        LinearLayout boxOfficeSelect = (LinearLayout) findViewById(R.id.boxOfficeSelection);
-        boxOfficeSelect.setOnClickListener(this);
-
     }
 
 
-    @Override
+    @OnClick({R.id.titleSelection, R.id.actorSelection, R.id.genreSelection, R.id.yearSelection, R.id.directorSelection, R.id.boxOfficeSelection})
     public void onClick(View view) {
-        ImageView selectedSearchImage = (ImageView) findViewById(R.id.selectedSearchImage);
-        TextView selectedSearchText = (TextView) findViewById(R.id.selectedSearchText);
 
         Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
+
+        String selectionType = "";
 
         switch(view.getId()) {
 
             case R.id.titleSelection :
-                searchIntent.putExtra("searchType", "Title");
-                startActivity(searchIntent);
+                selectionType = "Title";
                 break;
             case R.id.actorSelection :
-                searchIntent.putExtra("searchType", "Actor");
-                startActivity(searchIntent);
+                selectionType = "Actor";
                 break;
             case R.id.genreSelection :
-                searchIntent.putExtra("searchType", "Genre");
-                startActivity(searchIntent);
+                selectionType = "Genre";
                 break;
             case R.id.yearSelection :
-                searchIntent.putExtra("searchType", "Year");
-                startActivity(searchIntent);
+                selectionType = "Year";
                 break;
             case R.id.directorSelection :
-                searchIntent.putExtra("searchType", "Director");
-                startActivity(searchIntent);
+                selectionType = "Director";
                 break;
             case R.id.boxOfficeSelection :
-                searchIntent.putExtra("searchType", "BoxOffice");
-                startActivity(searchIntent);
+                selectionType = "BoxOffice";
                 break;
 
         }
+        searchIntent.putExtra("searchType", selectionType);
+        startActivity(searchIntent);
     }
+
 }
