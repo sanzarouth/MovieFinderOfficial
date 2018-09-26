@@ -2,7 +2,6 @@ package com.example.sanzarouth.moviefinder.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +12,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
-import com.example.sanzarouth.moviefinder.View.FullMovieActivity;
+import com.example.sanzarouth.moviefinder.Activities.FullMovieActivity;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 
-import butterknife.BindFloat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
