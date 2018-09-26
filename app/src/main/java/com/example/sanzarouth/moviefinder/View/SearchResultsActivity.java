@@ -11,7 +11,7 @@ import com.example.sanzarouth.moviefinder.Adapter.SearchMovieAdapter;
 import com.example.sanzarouth.moviefinder.Model.MovieList;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
-import com.example.sanzarouth.moviefinder.Rest.GetMovieDataService;
+import com.example.sanzarouth.moviefinder.Rest.GetMovieAPI;
 import com.example.sanzarouth.moviefinder.Rest.RetrofitInstance;
 
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class SearchResultsActivity extends AppCompatActivity {
 
         String query = getIntent().getExtras().getString("query");
 
-        GetMovieDataService service = RetrofitInstance.getRetrofitInstance().create(GetMovieDataService.class);
+        GetMovieAPI service = RetrofitInstance.getRetrofitInstance().create(GetMovieAPI.class);
         Call<MovieList> call = service.getMovies(query, "full", MovieFinderActivity.KEY);
 
         adapter = new SearchMovieAdapter(SearchResultsActivity.this, searchedMovies);

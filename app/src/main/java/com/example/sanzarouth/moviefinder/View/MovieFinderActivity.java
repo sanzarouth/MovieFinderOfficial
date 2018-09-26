@@ -20,9 +20,6 @@ public class MovieFinderActivity extends AppCompatActivity {
 
     protected static String KEY = "893bb7ef";
 
-    @BindViews({ R.id.titleSelection, R.id.actorSelection, R.id.genreSelection, R.id.yearSelection, R.id.directorSelection, R.id.boxOfficeSelection })
-    List<LinearLayout> layouts;
-
     @BindView(R.id.my_toolbar)
     Toolbar myToolbar;
 
