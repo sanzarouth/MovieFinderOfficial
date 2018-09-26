@@ -40,9 +40,6 @@ public class SearchActivity extends AppCompatActivity {
     @BindView(R.id.selectedSearchText)
     TextView selectedSearchText;
 
-    @BindView(R.id.searchButton)
-    Button searchButton;
-
     @BindViews({R.id.spinnerHolder, R.id.genreSpinner})
     List<View> genreSpinner;
 
