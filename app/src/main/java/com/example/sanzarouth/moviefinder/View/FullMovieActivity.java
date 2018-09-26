@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.sanzarouth.moviefinder.Model.Movie;
 import com.example.sanzarouth.moviefinder.R;
-import com.example.sanzarouth.moviefinder.Rest.GetMovieDataService;
+import com.example.sanzarouth.moviefinder.Rest.GetMovieAPI;
 import com.example.sanzarouth.moviefinder.Rest.RetrofitInstance;
 
 import butterknife.BindView;
@@ -60,7 +60,7 @@ public class FullMovieActivity extends AppCompatActivity {
 
         setSupportActionBar(myToolbar);
 
-        GetMovieDataService service = RetrofitInstance.getRetrofitInstance().create(GetMovieDataService.class);
+        GetMovieAPI service = RetrofitInstance.getRetrofitInstance().create(GetMovieAPI.class);
 
         Call<Movie> call = service.getMovie(getIntent().getStringExtra("movieTitle"), "full", MovieFinderActivity.KEY);
 
