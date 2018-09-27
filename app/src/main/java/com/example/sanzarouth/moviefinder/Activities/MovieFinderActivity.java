@@ -14,7 +14,7 @@ import butterknife.OnClick;
 
 public class MovieFinderActivity extends AppCompatActivity {
 
-    protected static String KEY = "893bb7ef";
+    public static String KEY = "893bb7ef";
 
     @BindView(R.id.my_toolbar)
     Toolbar myToolbar;
