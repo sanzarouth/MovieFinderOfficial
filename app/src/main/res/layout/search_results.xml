@@ -17,7 +17,7 @@
         android:theme="@style/MyStyle"
         app:titleTextAppearance="@style/MyStyle" />
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/moviesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

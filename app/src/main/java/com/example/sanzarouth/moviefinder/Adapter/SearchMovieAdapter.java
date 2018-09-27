@@ -2,11 +2,10 @@ package com.example.sanzarouth.moviefinder.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,43 +14,33 @@ import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
 import com.example.sanzarouth.moviefinder.View.FullMovieActivity;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 
-import butterknife.BindFloat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SearchMovieAdapter extends BaseAdapter {
+public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.MovieItemViewHolder> {
 
-    @BindView(R.id.imageView)
-    ImageView moviePoster;
-
-    @BindView(R.id.movieTitle)
-    TextView movieTitle;
-
-    @BindView(R.id.movieYear)
-    TextView movieYear;
-
-    LayoutInflater mInflator;
+    LayoutInflater inflater;
     ArrayList<SearchedMovie> movies;
     Context context;
 
     public SearchMovieAdapter(Context c, ArrayList<SearchedMovie> movies) {
         this.movies = movies;
         this.context = c;
-        mInflator = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
-    public int getCount() {
-        return movies.size();
+    public MovieItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = inflater.inflate(R.layout.movie_detail, null);
+        return new MovieItemViewHolder(v);
     }
 
     @Override
-    public Object getItem(int i) {
-        return movies.get(i);
+    public void onBindViewHolder(MovieItemViewHolder holder, int position) {
+        SearchedMovie movie = movies.get(position);
+        holder.setData(movie);
     }
 
     @Override
@@ -60,32 +49,54 @@ public class SearchMovieAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        View v = mInflator.inflate(R.layout.movie_detail, null);
+    public int getItemCount() {
+        return movies.size();
+    }
+    
 
-        ButterKnife.bind(this,v);
+    public static class MovieItemViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.imageView)
+        ImageView moviePoster;
 
-        final SearchedMovie movie = movies.get(i);
+        @BindView(R.id.movieTitle)
+        TextView movieTitle;
 
-        movieTitle.setText(movie.getMovieTitle());
-        movieYear.setText(movie.getYear());
+        @BindView(R.id.movieYear)
+        TextView movieYear;
 
-        if(movie.getPoster().equals("N/A")){
-            moviePoster.setImageResource(R.drawable.logo);
-        } else {
-            Glide.with(v.getContext()).load(movie.getPoster()).into(moviePoster);
+        View view;
+
+        Context context;
+
+        public MovieItemViewHolder(View itemView) {
+            super(itemView);
+            this.view = itemView;
+            context = itemView.getContext();
+            ButterKnife.bind(this, itemView);
+
         }
 
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                Intent fullMovieIntent = new Intent(context, FullMovieActivity.class);
-                fullMovieIntent.putExtra("movieTitle", movie.getMovieTitle());
-                context.startActivity(fullMovieIntent);
-            }
-        });
+        public void setData(final SearchedMovie movie) {
+            movieTitle.setText(movie.getMovieTitle());
+            movieYear.setText(movie.getYear());
 
-        return v;
+            if(movie.getPoster().equals("N/A")){
+                moviePoster.setImageResource(R.drawable.logo);
+            } else {
+                Glide.with(view.getContext()).load(movie.getPoster()).into(moviePoster);
+            }
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View view) {
+                    Intent fullMovieIntent = new Intent(context, FullMovieActivity.class);
+                    fullMovieIntent.putExtra("movieTitle", movie.getMovieTitle());
+                    context.startActivity(fullMovieIntent);
+                }
+            });
+        }
+
+
     }
 
 }
