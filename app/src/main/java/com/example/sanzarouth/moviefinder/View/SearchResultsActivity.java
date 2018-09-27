@@ -2,8 +2,9 @@ package com.example.sanzarouth.moviefinder.View;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +26,7 @@ import retrofit2.Response;
 public class SearchResultsActivity extends AppCompatActivity {
 
     @BindView(R.id.moviesList)
-    ListView lv;
+    RecyclerView lv;
 
     @BindView(R.id.my_toolbar)
     Toolbar myToolbar;
@@ -46,6 +47,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
         searchedMovies = new ArrayList<SearchedMovie>();
+        lv.setLayoutManager(new LinearLayoutManager(this));
 
         String query = getIntent().getExtras().getString("query");
 
