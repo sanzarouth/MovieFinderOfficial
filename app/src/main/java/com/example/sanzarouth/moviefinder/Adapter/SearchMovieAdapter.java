@@ -35,7 +35,7 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
 
     @Override
     public MovieItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = inflater.inflate(R.layout.movie_detail, null);
+        View v = inflater.inflate(R.layout.movie_detail, parent, false);
         return new MovieItemViewHolder(v);
     }
 
