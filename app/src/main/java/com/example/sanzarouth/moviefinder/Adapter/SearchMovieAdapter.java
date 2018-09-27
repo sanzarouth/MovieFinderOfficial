@@ -21,31 +21,19 @@ import butterknife.ButterKnife;
 
 public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.MovieItemViewHolder> {
 
-
-
-    LayoutInflater mInflator;
+    LayoutInflater inflater;
     ArrayList<SearchedMovie> movies;
     Context context;
 
     public SearchMovieAdapter(Context c, ArrayList<SearchedMovie> movies) {
         this.movies = movies;
         this.context = c;
-        mInflator = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
-
-//    @Override
-//    public int getCount() {
-//        return movies.size();
-//    }
-
-//    @Override
-//    public Object getItem(int i) {
-//        return movies.get(i);
-//    }
 
     @Override
     public MovieItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = mInflator.inflate(R.layout.movie_detail, null);
+        View v = inflater.inflate(R.layout.movie_detail, null);
         return new MovieItemViewHolder(v);
     }
 
@@ -64,27 +52,7 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
     public int getItemCount() {
         return movies.size();
     }
-
-
-//    @Override
-//    public View getView(int i, View view, ViewGroup viewGroup) {
-//        View v = mInflator.inflate(R.layout.movie_detail, null);
-//
-//        ButterKnife.bind(this,v);
-//
-//        final SearchedMovie movie = movies.get(i);
-//
-//        v.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(final View view) {
-//                Intent fullMovieIntent = new Intent(context, FullMovieActivity.class);
-//                fullMovieIntent.putExtra("movieTitle", movie.getMovieTitle());
-//                context.startActivity(fullMovieIntent);
-//            }
-//        });
-//
-//        return v;
-//    }
+    
 
     public static class MovieItemViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.imageView)
