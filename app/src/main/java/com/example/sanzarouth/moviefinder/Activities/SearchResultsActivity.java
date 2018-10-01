@@ -1,6 +1,9 @@
 package com.example.sanzarouth.moviefinder.Activities;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +15,9 @@ import com.example.sanzarouth.moviefinder.Adapter.SearchMovieAdapter;
 import com.example.sanzarouth.moviefinder.Model.MovieList;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
-import com.example.sanzarouth.moviefinder.Rest.GetMovieAPI;
+import com.example.sanzarouth.moviefinder.Rest.MovieAPI;
 import com.example.sanzarouth.moviefinder.Rest.RetrofitInstance;
+import com.example.sanzarouth.moviefinder.ViewModel.SearchResultsViewModel;
 
 import java.util.ArrayList;
 
@@ -35,7 +39,7 @@ public class SearchResultsActivity extends AppCompatActivity {
     TextView noResult;
 
     private SearchMovieAdapter adapter;
-    private ArrayList<SearchedMovie> searchedMovies;
+    private SearchResultsViewModel searchResultsViewModel;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -46,34 +50,20 @@ public class SearchResultsActivity extends AppCompatActivity {
 
         setSupportActionBar(myToolbar);
 
-        searchedMovies = new ArrayList<SearchedMovie>();
         lv.setLayoutManager(new LinearLayoutManager(this));
 
         String query = getIntent().getExtras().getString("query");
 
-        GetMovieAPI service = RetrofitInstance.getRetrofitInstance().create(GetMovieAPI.class);
-        Call<MovieList> call = service.getMovies(query, "full", MovieFinderActivity.KEY);
-
-        adapter = new SearchMovieAdapter(SearchResultsActivity.this, searchedMovies);
-        lv.setAdapter(adapter);
-
-        call.enqueue(new Callback<MovieList>() {
+        searchResultsViewModel = ViewModelProviders.of(this).get(SearchResultsViewModel.class);
+        final Observer<ArrayList<SearchedMovie>> nameObserver = new Observer<ArrayList<SearchedMovie>>() {
             @Override
-            public void onResponse(Call<MovieList> call, Response<MovieList> response) {
-                if(response.body().getMovieList() == null) {
-                    noResult.setText("Sorry, no results! :(");
-                    return;
-                }
-                noResult.setText("");
-                searchedMovies.addAll(response.body().getMovieList());
-                adapter.notifyDataSetChanged();
+            public void onChanged(@Nullable final ArrayList<SearchedMovie> searchedMovies) {
+                // do some UI changes
+                adapter = new SearchMovieAdapter(SearchResultsActivity.this, searchedMovies);
+                lv.setAdapter(adapter);
             }
-
-            @Override
-            public void onFailure(Call<MovieList> call, Throwable t) {
-                Toast.makeText(SearchResultsActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
-            }
-        });
+        };
+        searchResultsViewModel.getCurrentMovies(query).observe(this, nameObserver);
 
     }
 

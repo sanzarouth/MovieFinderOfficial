@@ -21,7 +21,7 @@
         <activity android:name=".OldCode.ResultsActivity"></activity>
         <activity android:name=".OldCode.FullMovieInfoActivity"></activity>
         <activity android:name=".Activities.SearchResultsActivity"></activity>
-        <activity android:name=".Activities.FullMovieActivity"></activity>
+        <activity android:name=".Activities.DetailMovieActivity"></activity>
     </application>
 
 </manifest>

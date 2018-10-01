@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.sanzarouth.moviefinder.Model.Movie;
 import com.example.sanzarouth.moviefinder.R;
-import com.example.sanzarouth.moviefinder.Rest.GetMovieAPI;
+import com.example.sanzarouth.moviefinder.Rest.MovieAPI;
 import com.example.sanzarouth.moviefinder.Rest.RetrofitInstance;
 
 import butterknife.BindView;
@@ -19,7 +19,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FullMovieActivity extends AppCompatActivity {
+public class DetailMovieActivity extends AppCompatActivity {
 
     @BindView(R.id.imageViewFull)
     ImageView imageViewFull;
@@ -60,7 +60,7 @@ public class FullMovieActivity extends AppCompatActivity {
 
         setSupportActionBar(myToolbar);
 
-        GetMovieAPI service = RetrofitInstance.getRetrofitInstance().create(GetMovieAPI.class);
+        MovieAPI service = RetrofitInstance.getRetrofitInstance().create(MovieAPI.class);
 
         Call<Movie> call = service.getMovie(getIntent().getStringExtra("movieTitle"), "full", MovieFinderActivity.KEY);
 
@@ -72,7 +72,7 @@ public class FullMovieActivity extends AppCompatActivity {
                 if(toShow.getPoster().equals("N/A")){
                     imageViewFull.setImageResource(R.drawable.logo);
                 } else {
-                    Glide.with(FullMovieActivity.this).load(toShow.getPoster()).into(imageViewFull);
+                    Glide.with(DetailMovieActivity.this).load(toShow.getPoster()).into(imageViewFull);
                 }
 
                 movieTitleFull.setText(toShow.getMovieTitle());
@@ -88,7 +88,7 @@ public class FullMovieActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Movie> call, Throwable t) {
-                Toast.makeText(FullMovieActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailMovieActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
             }
         });
 
