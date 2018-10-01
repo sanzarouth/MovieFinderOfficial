@@ -5,32 +5,30 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.sanzarouth.moviefinder.Adapter.SearchMovieAdapter;
+import com.example.sanzarouth.moviefinder.Model.Movie;
 import com.example.sanzarouth.moviefinder.Model.MovieList;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
-import com.example.sanzarouth.moviefinder.Rest.MovieAPI;
-import com.example.sanzarouth.moviefinder.Rest.RetrofitInstance;
 import com.example.sanzarouth.moviefinder.ViewModel.SearchResultsViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class SearchResultsActivity extends AppCompatActivity {
 
     @BindView(R.id.moviesList)
-    RecyclerView lv;
+    RecyclerView rv;
 
     @BindView(R.id.my_toolbar)
     Toolbar myToolbar;
@@ -39,7 +37,9 @@ public class SearchResultsActivity extends AppCompatActivity {
     TextView noResult;
 
     private SearchMovieAdapter adapter;
-    private SearchResultsViewModel searchResultsViewModel;
+    private String query;
+    private LinearLayoutManager layoutManager;
+    ArrayList<SearchedMovie> searchedMovies = new ArrayList<SearchedMovie>();
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -50,21 +50,42 @@ public class SearchResultsActivity extends AppCompatActivity {
 
         setSupportActionBar(myToolbar);
 
-        lv.setLayoutManager(new LinearLayoutManager(this));
+        query = getIntent().getExtras().getString("movieTitle");
 
-        String query = getIntent().getExtras().getString("query");
+        setupRecyclerView();
 
-        searchResultsViewModel = ViewModelProviders.of(this).get(SearchResultsViewModel.class);
-        final Observer<ArrayList<SearchedMovie>> nameObserver = new Observer<ArrayList<SearchedMovie>>() {
-            @Override
-            public void onChanged(@Nullable final ArrayList<SearchedMovie> searchedMovies) {
-                // do some UI changes
-                adapter = new SearchMovieAdapter(SearchResultsActivity.this, searchedMovies);
-                lv.setAdapter(adapter);
-            }
-        };
-        searchResultsViewModel.getCurrentMovies(query).observe(this, nameObserver);
+        final SearchResultsViewModel viewModel = ViewModelProviders.of(this).get(SearchResultsViewModel.class);
+
+        observeViewModel(viewModel);
 
     }
 
+    private void setupRecyclerView() {
+        layoutManager = new LinearLayoutManager(this);
+        if (adapter == null) {
+            adapter = new SearchMovieAdapter(this, searchedMovies);
+            rv.setLayoutManager(layoutManager);
+            rv.setAdapter(adapter);
+        } else {
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    private void observeViewModel(SearchResultsViewModel viewModel) {
+
+        final Observer<MovieList> nameObserver = new Observer<MovieList>() {
+            @Override
+            public void onChanged(@Nullable final MovieList movie) {
+                if (movie != null) {
+                    List<SearchedMovie> movies = movie.getMovieList();
+                    searchedMovies.addAll(movies);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        };
+
+        viewModel.getMovieResponseObservable().observe(this, nameObserver);
+    }
+
 }
+

@@ -1,6 +1,9 @@
 package com.example.sanzarouth.moviefinder.Activities;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
@@ -8,10 +11,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.sanzarouth.moviefinder.Adapter.SearchMovieAdapter;
 import com.example.sanzarouth.moviefinder.Model.Movie;
+import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
 import com.example.sanzarouth.moviefinder.Rest.MovieAPI;
 import com.example.sanzarouth.moviefinder.Rest.RetrofitInstance;
+import com.example.sanzarouth.moviefinder.ViewModel.DetailMovieViewModel;
+import com.example.sanzarouth.moviefinder.ViewModel.SearchResultsViewModel;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +60,8 @@ public class DetailMovieActivity extends AppCompatActivity {
     @BindView(R.id.my_toolbar)
     Toolbar myToolbar;
 
+    private DetailMovieViewModel detailMovieViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,37 +71,31 @@ public class DetailMovieActivity extends AppCompatActivity {
 
         setSupportActionBar(myToolbar);
 
-        MovieAPI service = RetrofitInstance.getRetrofitInstance().create(MovieAPI.class);
+        String query = getIntent().getExtras().getString("query");
 
-        Call<Movie> call = service.getMovie(getIntent().getStringExtra("movieTitle"), "full", MovieFinderActivity.KEY);
+        detailMovieViewModel = ViewModelProviders.of(this).get(DetailMovieViewModel.class);
 
-        call.enqueue(new Callback<Movie>() {
+        final Observer<Movie> nameObserver = new Observer<Movie>() {
             @Override
-            public void onResponse(Call<Movie> call, Response<Movie> response) {
-                Movie toShow = response.body();
-
-                if(toShow.getPoster().equals("N/A")){
+            public void onChanged(@Nullable final Movie movie) {
+                // do some UI changes
+                if(movie.getPoster().equals("N/A")){
                     imageViewFull.setImageResource(R.drawable.logo);
                 } else {
-                    Glide.with(DetailMovieActivity.this).load(toShow.getPoster()).into(imageViewFull);
+                    Glide.with(DetailMovieActivity.this).load(movie.getPoster()).into(imageViewFull);
                 }
-
-                movieTitleFull.setText(toShow.getMovieTitle());
-                movieGenreFull.setText(toShow.getGenre());
-                movieYearFull.setText(toShow.getYear());
-                directorFull.setText(toShow.getDirector());
-                fullCast.setText(toShow.getCast());
-                fullBoxOffice.setText(toShow.getBoxOffice());
-                fullAwards.setText(toShow.getAwards());
-                fullSummary.setText(toShow.getPlot());
-
+                movieTitleFull.setText(movie.getMovieTitle());
+                movieGenreFull.setText(movie.getGenre());
+                movieYearFull.setText(movie.getYear());
+                directorFull.setText(movie.getDirector());
+                fullCast.setText(movie.getCast());
+                fullBoxOffice.setText(movie.getBoxOffice());
+                fullAwards.setText(movie.getAwards());
+                fullSummary.setText(movie.getPlot());
             }
+        };
 
-            @Override
-            public void onFailure(Call<Movie> call, Throwable t) {
-                Toast.makeText(DetailMovieActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
-            }
-        });
+        detailMovieViewModel.getCurrentMovie(query).observe(this, nameObserver);
 
     }
 

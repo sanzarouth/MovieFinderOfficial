@@ -1,57 +1,32 @@
 package com.example.sanzarouth.moviefinder.ViewModel;
 
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
+import android.databinding.ObservableField;
+import android.support.annotation.NonNull;
 
-import com.example.sanzarouth.moviefinder.Activities.MovieFinderActivity;
 import com.example.sanzarouth.moviefinder.Model.MovieList;
-import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
-import com.example.sanzarouth.moviefinder.Rest.MovieAPI;
-import com.example.sanzarouth.moviefinder.Rest.RetrofitInstance;
+import com.example.sanzarouth.moviefinder.Rest.MovieService;
 
-import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class SearchResultsViewModel extends ViewModel {
+public class SearchResultsViewModel extends AndroidViewModel {
 
     private String query;
-    private MutableLiveData<ArrayList<SearchedMovie>> mSearchedMovies;
+    private LiveData<MovieList> movieResponseObservable;
 
-    public MutableLiveData<ArrayList<SearchedMovie>> getCurrentMovies(String query) {
-        this.query = query;
-        if (mSearchedMovies == null) {
-            getMovies();
-        }
-        return mSearchedMovies;
+    private static final MutableLiveData MUTABLE_LIVE_DATA = new MutableLiveData();{
+        MUTABLE_LIVE_DATA.setValue(null);
     }
 
-    public void getMovies() {
+    public final ObservableField<MovieList> project = new ObservableField<>();
 
-        final ArrayList<SearchedMovie> searchedMovies = new ArrayList<SearchedMovie>();
-        mSearchedMovies = new MutableLiveData<ArrayList<SearchedMovie>>();
-
-        MovieAPI service = RetrofitInstance.getRetrofitInstance().create(MovieAPI.class);
-        Call<MovieList> call = service.getMovies(query, "full", MovieFinderActivity.KEY);
-
-        call.enqueue(new Callback<MovieList>() {
-            @Override
-            public void onResponse(Call<MovieList> call, Response<MovieList> response) {
-                if (response.body().getMovieList() == null) {
-                    return;
-                }
-                searchedMovies.addAll(response.body().getMovieList());
-                mSearchedMovies.setValue(searchedMovies);
-            }
-
-            @Override
-            public void onFailure(Call<MovieList> call, Throwable t) {
-//                Toast.makeText(SearchResultsActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+    public SearchResultsViewModel(Application application) {
+        super(application);
+        movieResponseObservable = MovieService.getInstance().getMovies(query);
     }
 
+    public LiveData<MovieList> getMovieResponseObservable() {
+        return movieResponseObservable;
+    }
 }
