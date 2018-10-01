@@ -50,14 +50,23 @@ public class SearchResultsActivity extends AppCompatActivity {
 
         setSupportActionBar(myToolbar);
 
-        query = getIntent().getExtras().getString("movieTitle");
+        query = getIntent().getExtras().getString("query");
 
         setupRecyclerView();
 
-        final SearchResultsViewModel viewModel = ViewModelProviders.of(this).get(SearchResultsViewModel.class);
+        SearchResultsViewModel viewModel = ViewModelProviders.of(this).get(SearchResultsViewModel.class);
 
-        observeViewModel(viewModel);
-
+        viewModel.getMovieResponseObservable(query).observe(this, new Observer<MovieList>() {
+            @Override
+            public void onChanged(MovieList movie) {
+                if (movie != null) {
+                    System.out.println(movie.getMovieList());
+                    searchedMovies.clear();
+                    searchedMovies.addAll(movie.getMovieList());
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     private void setupRecyclerView() {
@@ -69,22 +78,6 @@ public class SearchResultsActivity extends AppCompatActivity {
         } else {
             adapter.notifyDataSetChanged();
         }
-    }
-
-    private void observeViewModel(SearchResultsViewModel viewModel) {
-
-        final Observer<MovieList> nameObserver = new Observer<MovieList>() {
-            @Override
-            public void onChanged(@Nullable final MovieList movie) {
-                if (movie != null) {
-                    List<SearchedMovie> movies = movie.getMovieList();
-                    searchedMovies.addAll(movies);
-                    adapter.notifyDataSetChanged();
-                }
-            }
-        };
-
-        viewModel.getMovieResponseObservable().observe(this, nameObserver);
     }
 
 }

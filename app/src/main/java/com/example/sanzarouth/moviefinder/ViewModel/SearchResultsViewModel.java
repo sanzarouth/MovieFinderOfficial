@@ -12,7 +12,6 @@ import com.example.sanzarouth.moviefinder.Rest.MovieService;
 
 public class SearchResultsViewModel extends AndroidViewModel {
 
-    private String query;
     private LiveData<MovieList> movieResponseObservable;
 
     private static final MutableLiveData MUTABLE_LIVE_DATA = new MutableLiveData();{
@@ -23,10 +22,10 @@ public class SearchResultsViewModel extends AndroidViewModel {
 
     public SearchResultsViewModel(Application application) {
         super(application);
-        movieResponseObservable = MovieService.getInstance().getMovies(query);
     }
 
-    public LiveData<MovieList> getMovieResponseObservable() {
+    public LiveData<MovieList> getMovieResponseObservable(String query) {
+        movieResponseObservable = MovieService.getInstance().getMovies(query);
         return movieResponseObservable;
     }
 }

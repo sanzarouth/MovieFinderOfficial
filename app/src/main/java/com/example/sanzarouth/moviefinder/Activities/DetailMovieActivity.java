@@ -17,7 +17,6 @@ import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
 import com.example.sanzarouth.moviefinder.Rest.MovieAPI;
 import com.example.sanzarouth.moviefinder.Rest.RetrofitInstance;
-import com.example.sanzarouth.moviefinder.ViewModel.DetailMovieViewModel;
 import com.example.sanzarouth.moviefinder.ViewModel.SearchResultsViewModel;
 
 import java.util.ArrayList;
@@ -60,7 +59,7 @@ public class DetailMovieActivity extends AppCompatActivity {
     @BindView(R.id.my_toolbar)
     Toolbar myToolbar;
 
-    private DetailMovieViewModel detailMovieViewModel;
+//    private DetailMovieViewModel detailMovieViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +72,7 @@ public class DetailMovieActivity extends AppCompatActivity {
 
         String query = getIntent().getExtras().getString("query");
 
-        detailMovieViewModel = ViewModelProviders.of(this).get(DetailMovieViewModel.class);
+//        detailMovieViewModel = ViewModelProviders.of(this).get(DetailMovieViewModel.class);
 
         final Observer<Movie> nameObserver = new Observer<Movie>() {
             @Override
@@ -95,7 +94,7 @@ public class DetailMovieActivity extends AppCompatActivity {
             }
         };
 
-        detailMovieViewModel.getCurrentMovie(query).observe(this, nameObserver);
+//        detailMovieViewModel.getCurrentMovie(query).observe(this, nameObserver);
 
     }
 
