@@ -14,12 +14,6 @@ public class SearchResultsViewModel extends AndroidViewModel {
 
     private LiveData<MovieList> movieResponseObservable;
 
-    private static final MutableLiveData MUTABLE_LIVE_DATA = new MutableLiveData();{
-        MUTABLE_LIVE_DATA.setValue(null);
-    }
-
-    public final ObservableField<MovieList> project = new ObservableField<>();
-
     public SearchResultsViewModel(Application application) {
         super(application);
     }

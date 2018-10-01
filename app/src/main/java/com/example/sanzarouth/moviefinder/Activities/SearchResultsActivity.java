@@ -60,7 +60,6 @@ public class SearchResultsActivity extends AppCompatActivity {
             @Override
             public void onChanged(MovieList movie) {
                 if (movie != null) {
-                    System.out.println(movie.getMovieList());
                     searchedMovies.clear();
                     searchedMovies.addAll(movie.getMovieList());
                     adapter.notifyDataSetChanged();
