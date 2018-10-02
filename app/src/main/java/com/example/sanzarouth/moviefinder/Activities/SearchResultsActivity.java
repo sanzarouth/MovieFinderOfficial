@@ -3,24 +3,19 @@ package com.example.sanzarouth.moviefinder.Activities;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.sanzarouth.moviefinder.Adapter.SearchMovieAdapter;
-import com.example.sanzarouth.moviefinder.Model.Movie;
 import com.example.sanzarouth.moviefinder.Model.MovieList;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
 import com.example.sanzarouth.moviefinder.ViewModel.SearchResultsViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,7 +54,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         viewModel.getMovieResponseObservable(query).observe(this, new Observer<MovieList>() {
             @Override
             public void onChanged(MovieList movie) {
-                if (movie != null) {
+                if (movie != null && movie.getMovieList() != null && !movie.getMovieList().isEmpty()) {
                     searchedMovies.clear();
                     searchedMovies.addAll(movie.getMovieList());
                     adapter.notifyDataSetChanged();
