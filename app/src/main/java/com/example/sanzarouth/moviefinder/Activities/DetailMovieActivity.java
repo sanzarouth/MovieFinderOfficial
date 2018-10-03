@@ -13,10 +13,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.sanzarouth.moviefinder.Adapter.SearchMovieAdapter;
 import com.example.sanzarouth.moviefinder.Model.Movie;
+import com.example.sanzarouth.moviefinder.Model.MovieList;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
 import com.example.sanzarouth.moviefinder.Rest.MovieAPI;
 import com.example.sanzarouth.moviefinder.Rest.RetrofitInstance;
+import com.example.sanzarouth.moviefinder.ViewModel.DetailMovieViewModel;
 import com.example.sanzarouth.moviefinder.ViewModel.SearchResultsViewModel;
 
 import java.util.ArrayList;
@@ -59,7 +61,6 @@ public class DetailMovieActivity extends AppCompatActivity {
     @BindView(R.id.my_toolbar)
     Toolbar myToolbar;
 
-//    private DetailMovieViewModel detailMovieViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,31 +71,30 @@ public class DetailMovieActivity extends AppCompatActivity {
 
         setSupportActionBar(myToolbar);
 
-        String query = getIntent().getExtras().getString("query");
+        String query = getIntent().getExtras().getString("movieTitle");
 
-//        detailMovieViewModel = ViewModelProviders.of(this).get(DetailMovieViewModel.class);
+        DetailMovieViewModel viewModel = ViewModelProviders.of(this).get(DetailMovieViewModel.class);
 
-        final Observer<Movie> nameObserver = new Observer<Movie>() {
+        viewModel.getMovieResponseObservable(query).observe(this, new Observer<Movie>() {
             @Override
-            public void onChanged(@Nullable final Movie movie) {
-                // do some UI changes
-                if(movie.getPoster().equals("N/A")){
-                    imageViewFull.setImageResource(R.drawable.logo);
-                } else {
-                    Glide.with(DetailMovieActivity.this).load(movie.getPoster()).into(imageViewFull);
+            public void onChanged(Movie movie) {
+                if (movie != null) {
+                    if(movie.getPoster().equals("N/A")){
+                        imageViewFull.setImageResource(R.drawable.logo);
+                    } else {
+                        Glide.with(DetailMovieActivity.this).load(movie.getPoster()).into(imageViewFull);
+                    }
+                    movieTitleFull.setText(movie.getMovieTitle());
+                    movieGenreFull.setText(movie.getGenre());
+                    movieYearFull.setText(movie.getYear());
+                    directorFull.setText(movie.getDirector());
+                    fullCast.setText(movie.getCast());
+                    fullBoxOffice.setText(movie.getBoxOffice());
+                    fullAwards.setText(movie.getAwards());
+                    fullSummary.setText(movie.getPlot());
                 }
-                movieTitleFull.setText(movie.getMovieTitle());
-                movieGenreFull.setText(movie.getGenre());
-                movieYearFull.setText(movie.getYear());
-                directorFull.setText(movie.getDirector());
-                fullCast.setText(movie.getCast());
-                fullBoxOffice.setText(movie.getBoxOffice());
-                fullAwards.setText(movie.getAwards());
-                fullSummary.setText(movie.getPlot());
             }
-        };
-
-//        detailMovieViewModel.getCurrentMovie(query).observe(this, nameObserver);
+        });
 
     }
 

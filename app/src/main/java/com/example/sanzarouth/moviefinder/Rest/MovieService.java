@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.example.sanzarouth.moviefinder.Activities.MovieFinderActivity;
+import com.example.sanzarouth.moviefinder.Model.Movie;
 import com.example.sanzarouth.moviefinder.Model.MovieList;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 
@@ -41,6 +42,25 @@ public class MovieService {
 
                     @Override
                     public void onFailure(Call<MovieList> call, Throwable t) {
+                        data.setValue(null);
+                    }
+                });
+        return data;
+    }
+
+    public LiveData<Movie> getMovie(String query) {
+        final MutableLiveData<Movie> data = new MutableLiveData<>();
+        movieAPI.getMovie(query, "full", MovieFinderActivity.KEY)
+                .enqueue(new Callback<Movie>() {
+                    @Override
+                    public void onResponse(Call<Movie> call, Response<Movie> response) {
+                        if (response.isSuccessful()) {
+                            data.setValue(response.body());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Movie> call, Throwable t) {
                         data.setValue(null);
                     }
                 });
