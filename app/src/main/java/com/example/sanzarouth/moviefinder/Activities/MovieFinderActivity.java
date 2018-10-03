@@ -1,24 +1,20 @@
-package com.example.sanzarouth.moviefinder.View;
+package com.example.sanzarouth.moviefinder.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.example.sanzarouth.moviefinder.R;
 
-import java.util.List;
-
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MovieFinderActivity extends AppCompatActivity {
 
-    protected static String KEY = "893bb7ef";
+    public static String KEY = "893bb7ef";
 
     @BindView(R.id.my_toolbar)
     Toolbar myToolbar;

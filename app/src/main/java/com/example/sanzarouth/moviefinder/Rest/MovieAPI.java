@@ -10,7 +10,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public interface GetMovieAPI {
+public interface MovieAPI {
 
     // http://www.omdbapi.com/?s=snow+white&plot=full&apikey=893bb7ef
 
