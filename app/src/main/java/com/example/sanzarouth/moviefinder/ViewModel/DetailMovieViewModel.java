@@ -31,7 +31,7 @@ public class DetailMovieViewModel extends AndroidViewModel {
         return movieLiveData;
     }
 
-    public MutableLiveData<Throwable> getMovieListErrorLiveData() {
+    public MutableLiveData<Throwable> getMovieErrorLiveData() {
         return movieErrorLiveData;
     }
 

@@ -99,7 +99,7 @@ public class DetailMovieActivity extends AppCompatActivity {
             }
         });
 
-        viewModel.getMovieListErrorLiveData().observe(this, new Observer<Throwable>() {
+        viewModel.getMovieErrorLiveData().observe(this, new Observer<Throwable>() {
             @Override
             public void onChanged(@Nullable Throwable throwable) {
                 Log.e(TAG, "Failed to get movies " + throwable.getMessage());
