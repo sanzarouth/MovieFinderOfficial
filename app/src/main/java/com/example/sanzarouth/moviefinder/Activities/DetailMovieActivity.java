@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailMovieActivity extends AppCompatActivity {
+
+    private static final String TAG = SearchResultsActivity.class.getSimpleName();
 
     @BindView(R.id.imageViewFull)
     ImageView imageViewFull;
@@ -75,11 +78,11 @@ public class DetailMovieActivity extends AppCompatActivity {
 
         DetailMovieViewModel viewModel = ViewModelProviders.of(this).get(DetailMovieViewModel.class);
 
-        viewModel.getMovieResponseObservable(query).observe(this, new Observer<Movie>() {
+        viewModel.getMovieLiveData().observe(this, new Observer<Movie>() {
             @Override
             public void onChanged(Movie movie) {
                 if (movie != null) {
-                    if(movie.getPoster().equals("N/A")){
+                    if (movie.getPoster().equals("N/A")) {
                         imageViewFull.setImageResource(R.drawable.logo);
                     } else {
                         Glide.with(DetailMovieActivity.this).load(movie.getPoster()).into(imageViewFull);
@@ -95,6 +98,15 @@ public class DetailMovieActivity extends AppCompatActivity {
                 }
             }
         });
+
+        viewModel.getMovieListErrorLiveData().observe(this, new Observer<Throwable>() {
+            @Override
+            public void onChanged(@Nullable Throwable throwable) {
+                Log.e(TAG, "Failed to get movies " + throwable.getMessage());
+            }
+        });
+        viewModel.getMovies(query);
+
 
     }
 

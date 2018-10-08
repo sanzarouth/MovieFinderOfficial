@@ -25,6 +25,7 @@ import butterknife.ButterKnife;
 public class SearchResultsActivity extends AppCompatActivity {
 
     private static final String TAG = SearchResultsActivity.class.getSimpleName();
+
     @BindView(R.id.moviesList)
     RecyclerView rv;
 
