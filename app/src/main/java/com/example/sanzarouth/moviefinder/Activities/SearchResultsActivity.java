@@ -3,10 +3,12 @@ package com.example.sanzarouth.moviefinder.Activities;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.sanzarouth.moviefinder.Adapter.SearchMovieAdapter;
@@ -22,6 +24,7 @@ import butterknife.ButterKnife;
 
 public class SearchResultsActivity extends AppCompatActivity {
 
+    private static final String TAG = SearchResultsActivity.class.getSimpleName();
     @BindView(R.id.moviesList)
     RecyclerView rv;
 
@@ -51,9 +54,9 @@ public class SearchResultsActivity extends AppCompatActivity {
 
         SearchResultsViewModel viewModel = ViewModelProviders.of(this).get(SearchResultsViewModel.class);
 
-        viewModel.getMovieResponseObservable(query).observe(this, new Observer<MovieList>() {
+        viewModel.getMovieListLiveData().observe(this, new Observer<MovieList>() {
             @Override
-            public void onChanged(MovieList movie) {
+            public void onChanged(@Nullable MovieList movie) {
                 if (movie != null && movie.getMovieList() != null && !movie.getMovieList().isEmpty()) {
                     searchedMovies.clear();
                     searchedMovies.addAll(movie.getMovieList());
@@ -61,6 +64,14 @@ public class SearchResultsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        viewModel.getMovieListErrorLiveData().observe(this, new Observer<Throwable>() {
+            @Override
+            public void onChanged(@Nullable Throwable throwable) {
+                Log.e(TAG, "Failed to get movies " + throwable.getMessage());
+            }
+        });
+        viewModel.getMovies(query);
     }
 
     private void setupRecyclerView() {
