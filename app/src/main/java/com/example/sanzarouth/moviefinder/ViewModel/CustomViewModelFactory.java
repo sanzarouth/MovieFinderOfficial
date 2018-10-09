@@ -20,6 +20,13 @@ public class CustomViewModelFactory extends ViewModelProvider.NewInstanceFactory
 
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
+
+        if (modelClass == SearchResultsViewModel.class) {
+            return (T) new SearchResultsViewModel(application, retrofitNetworkInterface);
+        } else if (modelClass == DetailMovieViewModel.class) {
+            return (T) new DetailMovieViewModel(application, retrofitNetworkInterface);
+        }
+
         return (T) new SearchResultsViewModel(application, retrofitNetworkInterface);
     }
 }

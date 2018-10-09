@@ -13,24 +13,33 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.sanzarouth.moviefinder.Adapter.SearchMovieAdapter;
+import com.example.sanzarouth.moviefinder.CustomApplication;
 import com.example.sanzarouth.moviefinder.Model.Movie;
 import com.example.sanzarouth.moviefinder.Model.MovieList;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
+import com.example.sanzarouth.moviefinder.Rest.RetrofitNetworkInterface;
+import com.example.sanzarouth.moviefinder.ViewModel.CustomViewModelFactory;
 import com.example.sanzarouth.moviefinder.ViewModel.DetailMovieViewModel;
 import com.example.sanzarouth.moviefinder.ViewModel.SearchResultsViewModel;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class DetailMovieActivity extends AppCompatActivity {
 
     private static final String TAG = SearchResultsActivity.class.getSimpleName();
+
+    @Inject
+    Retrofit retrofit;
 
     @BindView(R.id.imageViewFull)
     ImageView imageViewFull;
@@ -62,6 +71,7 @@ public class DetailMovieActivity extends AppCompatActivity {
     @BindView(R.id.my_toolbar)
     Toolbar myToolbar;
 
+    RetrofitNetworkInterface mService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +84,11 @@ public class DetailMovieActivity extends AppCompatActivity {
 
         String query = getIntent().getExtras().getString("movieTitle");
 
-        DetailMovieViewModel viewModel = ViewModelProviders.of(this).get(DetailMovieViewModel.class);
+        ((CustomApplication)getApplication()).getNetworkComponent().injectDetail(DetailMovieActivity.this);
+        mService = retrofit.create(RetrofitNetworkInterface.class);
+
+        DetailMovieViewModel viewModel = ViewModelProviders
+                .of(this, new CustomViewModelFactory(this.getApplication(), mService)).get(DetailMovieViewModel.class);
 
         viewModel.getMovieLiveData().observe(this, new Observer<Movie>() {
             @Override

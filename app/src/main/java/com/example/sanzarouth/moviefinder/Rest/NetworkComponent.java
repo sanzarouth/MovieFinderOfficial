@@ -1,5 +1,6 @@
 package com.example.sanzarouth.moviefinder.Rest;
 
+import com.example.sanzarouth.moviefinder.Activities.DetailMovieActivity;
 import com.example.sanzarouth.moviefinder.Activities.SearchResultsActivity;
 
 import javax.inject.Singleton;
@@ -11,5 +12,7 @@ import dagger.Component;
 public interface NetworkComponent {
 
     public void inject(SearchResultsActivity activity);
+
+    public void injectDetail(DetailMovieActivity activity);
 
 }
