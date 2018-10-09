@@ -1,4 +1,4 @@
-package com.example.sanzarouth.moviefinder;
+package com.example.sanzarouth.moviefinder.Rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

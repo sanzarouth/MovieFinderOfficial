@@ -6,7 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.example.sanzarouth.moviefinder.Activities.MovieFinderActivity;
 import com.example.sanzarouth.moviefinder.Model.MovieList;
-import com.example.sanzarouth.moviefinder.RetrofitNetworkInterface;
+import com.example.sanzarouth.moviefinder.Rest.RetrofitNetworkInterface;
 
 import retrofit2.Call;
 import retrofit2.Callback;

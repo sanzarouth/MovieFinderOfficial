@@ -13,11 +13,11 @@ import android.widget.TextView;
 
 import com.example.sanzarouth.moviefinder.Adapter.SearchMovieAdapter;
 import com.example.sanzarouth.moviefinder.CustomApplication;
-import com.example.sanzarouth.moviefinder.CustomViewModelFactory;
+import com.example.sanzarouth.moviefinder.ViewModel.CustomViewModelFactory;
 import com.example.sanzarouth.moviefinder.Model.MovieList;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
-import com.example.sanzarouth.moviefinder.RetrofitNetworkInterface;
+import com.example.sanzarouth.moviefinder.Rest.RetrofitNetworkInterface;
 import com.example.sanzarouth.moviefinder.ViewModel.SearchResultsViewModel;
 
 import java.util.ArrayList;

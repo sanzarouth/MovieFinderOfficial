@@ -2,6 +2,10 @@ package com.example.sanzarouth.moviefinder;
 
 import android.app.Application;
 
+import com.example.sanzarouth.moviefinder.Rest.DaggerNetworkComponent;
+import com.example.sanzarouth.moviefinder.Rest.NetworkComponent;
+import com.example.sanzarouth.moviefinder.Rest.NetworksModule;
+
 public class CustomApplication extends Application {
 
     private NetworkComponent networkComponent;

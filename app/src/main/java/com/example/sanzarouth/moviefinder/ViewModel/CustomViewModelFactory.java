@@ -1,10 +1,10 @@
-package com.example.sanzarouth.moviefinder;
+package com.example.sanzarouth.moviefinder.ViewModel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
+import com.example.sanzarouth.moviefinder.Rest.RetrofitNetworkInterface;
 import com.example.sanzarouth.moviefinder.ViewModel.SearchResultsViewModel;
 
 public class CustomViewModelFactory extends ViewModelProvider.NewInstanceFactory {

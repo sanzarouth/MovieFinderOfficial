@@ -1,4 +1,4 @@
-package com.example.sanzarouth.moviefinder;
+package com.example.sanzarouth.moviefinder.Rest;
 
 import com.example.sanzarouth.moviefinder.Model.Movie;
 import com.example.sanzarouth.moviefinder.Model.MovieList;

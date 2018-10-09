@@ -1,8 +1,5 @@
-package com.example.sanzarouth.moviefinder;
+package com.example.sanzarouth.moviefinder.Rest;
 
-import android.support.v7.app.AppCompatActivity;
-
-import com.example.sanzarouth.moviefinder.Activities.MovieFinderActivity;
 import com.example.sanzarouth.moviefinder.Activities.SearchResultsActivity;
 
 import javax.inject.Singleton;
