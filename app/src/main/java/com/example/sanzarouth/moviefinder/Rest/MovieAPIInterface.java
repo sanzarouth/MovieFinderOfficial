@@ -7,7 +7,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface RetrofitNetworkInterface {
+public interface MovieAPIInterface {
 
     @GET("/")
     Call<MovieList> getMovies(@Query("s") String title, @Query("plot") String plot, @Query("apikey") String key);

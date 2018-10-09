@@ -8,8 +8,8 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {NetworksModule.class})
-public interface NetworkComponent {
+@Component(modules = {MovieAPIModule.class})
+public interface ModuleAPIComponent {
 
     public void inject(SearchResultsActivity activity);
 

@@ -6,7 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.example.sanzarouth.moviefinder.Activities.MovieFinderActivity;
 import com.example.sanzarouth.moviefinder.Model.MovieList;
-import com.example.sanzarouth.moviefinder.Rest.RetrofitNetworkInterface;
+import com.example.sanzarouth.moviefinder.Rest.MovieAPIInterface;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,9 +18,9 @@ public class SearchResultsViewModel extends AndroidViewModel {
 
     private MutableLiveData<Throwable> movieListErrorLiveData;
 
-    RetrofitNetworkInterface retrofitNetworkInterface;
+    MovieAPIInterface retrofitNetworkInterface;
 
-    public SearchResultsViewModel(Application application, RetrofitNetworkInterface retrofitNetworkInterface) {
+    public SearchResultsViewModel(Application application, MovieAPIInterface retrofitNetworkInterface) {
         super(application);
         this.retrofitNetworkInterface = retrofitNetworkInterface;
         movieListLiveData = new MutableLiveData<>();

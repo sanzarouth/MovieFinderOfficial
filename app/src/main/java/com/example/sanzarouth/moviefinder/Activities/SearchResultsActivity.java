@@ -17,7 +17,7 @@ import com.example.sanzarouth.moviefinder.ViewModel.CustomViewModelFactory;
 import com.example.sanzarouth.moviefinder.Model.MovieList;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
-import com.example.sanzarouth.moviefinder.Rest.RetrofitNetworkInterface;
+import com.example.sanzarouth.moviefinder.Rest.MovieAPIInterface;
 import com.example.sanzarouth.moviefinder.ViewModel.SearchResultsViewModel;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class SearchResultsActivity extends AppCompatActivity {
     private String query;
     private LinearLayoutManager layoutManager;
     ArrayList<SearchedMovie> searchedMovies = new ArrayList<SearchedMovie>();
-    RetrofitNetworkInterface mService;
+    MovieAPIInterface mService;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         setContentView(R.layout.search_results);
 
         ((CustomApplication)getApplication()).getNetworkComponent().inject(SearchResultsActivity.this);
-        mService = retrofit.create(RetrofitNetworkInterface.class);
+        mService = retrofit.create(MovieAPIInterface.class);
 
         ButterKnife.bind(this);
 

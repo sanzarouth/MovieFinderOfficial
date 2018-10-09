@@ -11,11 +11,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
-public class NetworksModule {
+public class MovieAPIModule {
 
     private String urlPath;
 
-    public NetworksModule(String urlPath) {
+    public MovieAPIModule(String urlPath) {
         this.urlPath = urlPath;
     }
 
