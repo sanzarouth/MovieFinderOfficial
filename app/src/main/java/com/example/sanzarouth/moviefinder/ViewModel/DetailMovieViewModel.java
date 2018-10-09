@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 
 import com.example.sanzarouth.moviefinder.Model.Movie;
 import com.example.sanzarouth.moviefinder.Model.MovieList;
-import com.example.sanzarouth.moviefinder.Rest.MovieService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,20 +35,20 @@ public class DetailMovieViewModel extends AndroidViewModel {
     }
 
     public void getMovies(String query) {
-        MovieService.getInstance().getMovie(query)
-                .enqueue(new Callback<Movie>() {
-                    @Override
-                    public void onResponse(Call<Movie> call, Response<Movie> response) {
-                        if (response.isSuccessful()) {
-                            movieLiveData.setValue(response.body());
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Movie> call, Throwable t) {
-                        movieErrorLiveData.setValue(t);
-                    }
-                });
+//        MovieService.getInstance().getMovie(query)
+//                .enqueue(new Callback<Movie>() {
+//                    @Override
+//                    public void onResponse(Call<Movie> call, Response<Movie> response) {
+//                        if (response.isSuccessful()) {
+//                            movieLiveData.setValue(response.body());
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Movie> call, Throwable t) {
+//                        movieErrorLiveData.setValue(t);
+//                    }
+//                });
 
     }
 

@@ -3,6 +3,7 @@
     package="com.example.sanzarouth.moviefinder">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
+        android:name=".CustomApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,8 +19,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.SearchActivity"></activity>
-        <activity android:name=".OldCode.ResultsActivity"></activity>
-        <activity android:name=".OldCode.FullMovieInfoActivity"></activity>
         <activity android:name=".Activities.SearchResultsActivity"></activity>
         <activity android:name=".Activities.DetailMovieActivity"></activity>
     </application>

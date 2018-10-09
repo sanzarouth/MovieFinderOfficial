@@ -17,8 +17,6 @@ import com.example.sanzarouth.moviefinder.Model.Movie;
 import com.example.sanzarouth.moviefinder.Model.MovieList;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
-import com.example.sanzarouth.moviefinder.Rest.MovieAPI;
-import com.example.sanzarouth.moviefinder.Rest.RetrofitInstance;
 import com.example.sanzarouth.moviefinder.ViewModel.DetailMovieViewModel;
 import com.example.sanzarouth.moviefinder.ViewModel.SearchResultsViewModel;
 
