@@ -22,14 +22,13 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Retrofit;
 
 public class DetailMovieActivity extends AppCompatActivity {
 
     private static final String TAG = SearchResultsActivity.class.getSimpleName();
 
     @Inject
-    Retrofit retrofit;
+    CustomViewModelFactory customViewModelFactory;
 
     @BindView(R.id.imageViewFull)
     ImageView imageViewFull;
@@ -75,12 +74,11 @@ public class DetailMovieActivity extends AppCompatActivity {
         String query = getIntent().getExtras().getString("movieTitle");
 
         ((CustomApplication)getApplication()).getNetworkComponent().injectDetail(DetailMovieActivity.this);
-        mService = retrofit.create(MovieAPIInterface.class);
 
-        DetailMovieViewModel viewModel = ViewModelProviders
-                .of(this, new CustomViewModelFactory(this.getApplication(), mService)).get(DetailMovieViewModel.class);
+        DetailMovieViewModel detailMovieViewModel = ViewModelProviders
+                .of(this, customViewModelFactory).get(DetailMovieViewModel.class);
 
-        viewModel.getMovieLiveData().observe(this, new Observer<Movie>() {
+        detailMovieViewModel.getMovieLiveData().observe(this, new Observer<Movie>() {
             @Override
             public void onChanged(Movie movie) {
                 if (movie != null) {
@@ -101,13 +99,13 @@ public class DetailMovieActivity extends AppCompatActivity {
             }
         });
 
-        viewModel.getMovieErrorLiveData().observe(this, new Observer<Throwable>() {
+        detailMovieViewModel.getMovieErrorLiveData().observe(this, new Observer<Throwable>() {
             @Override
             public void onChanged(@Nullable Throwable throwable) {
                 Log.e(TAG, "Failed to get movies " + throwable.getMessage());
             }
         });
-        viewModel.getMovies(query);
+        detailMovieViewModel.getMovieDetail(query);
 
 
     }

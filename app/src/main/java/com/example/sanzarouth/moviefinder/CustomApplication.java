@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.example.sanzarouth.moviefinder.Rest.DaggerModuleAPIComponent;
 import com.example.sanzarouth.moviefinder.Rest.ModuleAPIComponent;
-import com.example.sanzarouth.moviefinder.Rest.MovieAPIModule;
+import com.example.sanzarouth.moviefinder.Rest.MovieModule;
 
 public class CustomApplication extends Application {
 
@@ -14,7 +14,7 @@ public class CustomApplication extends Application {
     public void onCreate() {
         super.onCreate();
         networkComponent = DaggerModuleAPIComponent.builder()
-                .movieAPIModule(new MovieAPIModule("http://www.omdbapi.com/"))
+                .movieModule(new MovieModule(this, "http://www.omdbapi.com/"))
                 .build();
     }
 

@@ -4,16 +4,16 @@ import android.app.Application;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
-import com.example.sanzarouth.moviefinder.Rest.MovieAPIInterface;
+import com.example.sanzarouth.moviefinder.Rest.MovieService;
 
-public class CustomViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+public class CustomViewModelFactory implements ViewModelProvider.Factory {
     private Application application;
-    private MovieAPIInterface retrofitNetworkInterface;
+    private MovieService movieService;
 
 
-    public CustomViewModelFactory(Application application, MovieAPIInterface retrofitNetworkInterface) {
+    public CustomViewModelFactory(Application application, MovieService movieService) {
         this.application = application;
-        this.retrofitNetworkInterface = retrofitNetworkInterface;
+        this.movieService = movieService;
     }
 
 
@@ -21,11 +21,11 @@ public class CustomViewModelFactory extends ViewModelProvider.NewInstanceFactory
     public <T extends ViewModel> T create(Class<T> modelClass) {
 
         if (modelClass == SearchResultsViewModel.class) {
-            return (T) new SearchResultsViewModel(application, retrofitNetworkInterface);
+            return (T) new SearchResultsViewModel(application, movieService);
         } else if (modelClass == DetailMovieViewModel.class) {
-            return (T) new DetailMovieViewModel(application, retrofitNetworkInterface);
+            return (T) new DetailMovieViewModel(application, movieService);
         }
 
-        return (T) new SearchResultsViewModel(application, retrofitNetworkInterface);
+        return (T) new SearchResultsViewModel(application, movieService);
     }
 }

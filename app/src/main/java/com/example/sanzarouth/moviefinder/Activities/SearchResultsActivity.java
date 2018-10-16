@@ -13,11 +13,10 @@ import android.widget.TextView;
 
 import com.example.sanzarouth.moviefinder.Adapter.SearchMovieAdapter;
 import com.example.sanzarouth.moviefinder.CustomApplication;
-import com.example.sanzarouth.moviefinder.ViewModel.CustomViewModelFactory;
 import com.example.sanzarouth.moviefinder.Model.MovieList;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
-import com.example.sanzarouth.moviefinder.Rest.MovieAPIInterface;
+import com.example.sanzarouth.moviefinder.ViewModel.CustomViewModelFactory;
 import com.example.sanzarouth.moviefinder.ViewModel.SearchResultsViewModel;
 
 import java.util.ArrayList;
@@ -26,14 +25,13 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Retrofit;
 
 public class SearchResultsActivity extends AppCompatActivity {
 
     private static final String TAG = SearchResultsActivity.class.getSimpleName();
 
     @Inject
-    Retrofit retrofit;
+    CustomViewModelFactory customViewModelFactory;
 
     @BindView(R.id.moviesList)
     RecyclerView rv;
@@ -48,7 +46,6 @@ public class SearchResultsActivity extends AppCompatActivity {
     private String query;
     private LinearLayoutManager layoutManager;
     ArrayList<SearchedMovie> searchedMovies = new ArrayList<SearchedMovie>();
-    MovieAPIInterface mService;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -56,8 +53,6 @@ public class SearchResultsActivity extends AppCompatActivity {
         setContentView(R.layout.search_results);
 
         ((CustomApplication)getApplication()).getNetworkComponent().inject(SearchResultsActivity.this);
-        mService = retrofit.create(MovieAPIInterface.class);
-
         ButterKnife.bind(this);
 
         setSupportActionBar(myToolbar);
@@ -67,7 +62,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         setupRecyclerView();
 
         SearchResultsViewModel viewModel = ViewModelProviders
-                .of(this, new CustomViewModelFactory(this.getApplication(), mService)).get(SearchResultsViewModel.class);
+                .of(this, customViewModelFactory).get(SearchResultsViewModel.class);
 
         viewModel.getMovieListLiveData().observe(this, new Observer<MovieList>() {
             @Override

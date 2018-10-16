@@ -6,7 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.example.sanzarouth.moviefinder.Activities.MovieFinderActivity;
 import com.example.sanzarouth.moviefinder.Model.Movie;
-import com.example.sanzarouth.moviefinder.Rest.MovieAPIInterface;
+import com.example.sanzarouth.moviefinder.Rest.MovieService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,13 +18,13 @@ public class DetailMovieViewModel extends AndroidViewModel {
 
     private MutableLiveData<Throwable> movieErrorLiveData;
 
-    MovieAPIInterface retrofitNetworkInterface;
+    MovieService movieService;
 
-    public DetailMovieViewModel(Application application, MovieAPIInterface retrofitNetworkInterface) {
+    public DetailMovieViewModel(Application application, MovieService movieService) {
         super(application);
         movieLiveData = new MutableLiveData<>();
         movieErrorLiveData = new MutableLiveData<>();
-        this.retrofitNetworkInterface = retrofitNetworkInterface;
+        this.movieService = movieService;
     }
 
     public MutableLiveData<Movie> getMovieLiveData() {
@@ -35,8 +35,8 @@ public class DetailMovieViewModel extends AndroidViewModel {
         return movieErrorLiveData;
     }
 
-    public void getMovies(String query) {
-        retrofitNetworkInterface.getMovie(query, "full", MovieFinderActivity.KEY)
+    public void getMovieDetail(String query) {
+        movieService.getMovieDetail(query, "full", MovieFinderActivity.KEY)
                 .enqueue(new Callback<Movie>() {
                     @Override
                     public void onResponse(Call<Movie> call, Response<Movie> response) {
@@ -52,8 +52,4 @@ public class DetailMovieViewModel extends AndroidViewModel {
                 });
 
     }
-
-
-
-
 }

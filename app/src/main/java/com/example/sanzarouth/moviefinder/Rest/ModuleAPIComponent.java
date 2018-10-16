@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {MovieAPIModule.class})
+@Component(modules = {MovieModule.class})
 public interface ModuleAPIComponent {
 
     public void inject(SearchResultsActivity activity);
