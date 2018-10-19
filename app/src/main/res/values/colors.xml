@@ -4,5 +4,5 @@
     <color name="colorPrimaryDark">#010045</color>
     <color name="colorAccent">@android:color/white</color>
     <color name="background">#010045</color>
-    <color name="buttonColor">#173D76</color>
+    <color name="buttonColor">#173d76</color>
 </resources>
