@@ -2,7 +2,9 @@ package com.example.sanzarouth.moviefinder.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+
 import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.sanzarouth.moviefinder.Activities.DetailMovieActivity;
 import com.example.sanzarouth.moviefinder.Model.SearchedMovie;
 import com.example.sanzarouth.moviefinder.R;
-import com.example.sanzarouth.moviefinder.View.FullMovieActivity;
 
 import java.util.ArrayList;
 
@@ -33,7 +35,7 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
 
     @Override
     public MovieItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = inflater.inflate(R.layout.movie_detail, null);
+        View v = inflater.inflate(R.layout.movie_detail, parent, false);
         return new MovieItemViewHolder(v);
     }
 
@@ -89,7 +91,7 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View view) {
-                    Intent fullMovieIntent = new Intent(context, FullMovieActivity.class);
+                    Intent fullMovieIntent = new Intent(context, DetailMovieActivity.class);
                     fullMovieIntent.putExtra("movieTitle", movie.getMovieTitle());
                     context.startActivity(fullMovieIntent);
                 }
