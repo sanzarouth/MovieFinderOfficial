@@ -69,20 +69,21 @@
         android:id="@+id/spinnerHolder"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/bg_spinner"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="80dp">
+        android:layout_marginTop="80dp"
+        android:background="@drawable/bg_spinner"
+        android:visibility="gone">
+
         <Spinner
             android:id="@+id/genreSpinner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:entries="@array/genres"
-            android:visibility="gone"
             android:popupBackground="@android:color/white"
             android:theme="@style/mySpinnerItemStyle"
-            />
+            android:visibility="gone" />
     </RelativeLayout>
 
     <Button
