@@ -2,9 +2,6 @@ package com.example.sanzarouth.moviefinder.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
 public class SearchedMovie {
 
     @SerializedName("Title")

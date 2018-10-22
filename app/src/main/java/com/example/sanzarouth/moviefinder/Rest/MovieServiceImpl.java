@@ -3,7 +3,8 @@ package com.example.sanzarouth.moviefinder.Rest;
 import com.example.sanzarouth.moviefinder.Model.Movie;
 import com.example.sanzarouth.moviefinder.Model.MovieList;
 
-import retrofit2.Call;
+import io.reactivex.Observable;
+
 
 public class MovieServiceImpl implements MovieService {
 
@@ -14,12 +15,12 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Call<MovieList> getMovieList(String title, String plot, String key) {
+    public Observable<MovieList> getMovieList(String title, String plot, String key) {
         return movieAPIInterface.getMovies(title, plot, key);
     }
 
     @Override
-    public Call<Movie> getMovieDetail(String title, String plot, String key) {
+    public Observable<Movie> getMovieDetail(String title, String plot, String key) {
         return movieAPIInterface.getMovie(title, plot,key);
     }
 }
