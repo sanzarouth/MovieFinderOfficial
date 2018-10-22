@@ -26,16 +26,33 @@ public class MovieServiceImpl implements MovieService {
         return movieAPIInterface.getMovies(title, plot, key).map(new Function<MovieList, MovieList>() {
             @Override
             public MovieList apply(MovieList movieList) throws Exception {
-                Log.e("TEST", "" + movieList.toString());
                 movieList.getMovieList().sort(new Comparator<SearchedMovie>() {
                     @Override
-                    public int compare(SearchedMovie searchedMovie, SearchedMovie t1) {
-                        Log.e("TEST", "MOVIE: " + searchedMovie);
-                        return 0;
+                    public int compare(SearchedMovie movie1, SearchedMovie movie2) {
+                        String year1 = movie1.getYear();
+                        String year2 = movie2.getYear();
+
+                        if(movie1.getYear().contains("–")){
+                            year1 = year1.substring(0, year1.length() - 1);
+                        }
+
+                        if(movie2.getYear().contains("–")){
+                            year2 = year1.substring(0, year1.length() - 1);
+                        }
+
+                        int year1Int = Integer.parseInt(year1);
+                        int year2Int = Integer.parseInt(year2);
+
+                        if(year1Int < year2Int) {
+                            return 1;
+                        } else if (year1Int == year2Int) {
+                            return 0;
+                        } else {
+                            return -1;
+                        }
+
                     }
                 });
-
-                Log.e("TEST", "" + movieList.toString());
                 return movieList;
             }
         });

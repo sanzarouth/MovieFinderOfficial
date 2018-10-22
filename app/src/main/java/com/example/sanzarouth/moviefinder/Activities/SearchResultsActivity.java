@@ -50,7 +50,6 @@ public class SearchResultsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e(TAG, "onCreate");
         setContentView(R.layout.search_results);
 
         ((CustomApplication)getApplication()).getNetworkComponent().inject(SearchResultsActivity.this);
@@ -69,7 +68,6 @@ public class SearchResultsActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable MovieList movie) {
                 if (movie != null && movie.getMovieList() != null && !movie.getMovieList().isEmpty()) {
-                    Log.e(TAG, "getMovieListLiveData");
                     searchedMovies.clear();
                     searchedMovies.addAll(movie.getMovieList());
                     adapter.notifyDataSetChanged();
