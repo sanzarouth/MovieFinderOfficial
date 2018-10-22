@@ -3,13 +3,13 @@ package com.example.sanzarouth.moviefinder.Rest;
 import com.example.sanzarouth.moviefinder.Model.Movie;
 import com.example.sanzarouth.moviefinder.Model.MovieList;
 
-import retrofit2.Call;
+import io.reactivex.Observable;
 
 public interface MovieService {
 
-    Call<MovieList> getMovieList(String title, String plot, String key);
+    Observable<MovieList> getMovieList(String title, String plot, String key);
 
 
-    Call<Movie> getMovieDetail(String title, String plot, String key);
+    Observable<Movie> getMovieDetail(String title, String plot, String key);
 
 }

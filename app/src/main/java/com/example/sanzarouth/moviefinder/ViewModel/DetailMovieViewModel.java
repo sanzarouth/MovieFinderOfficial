@@ -8,9 +8,10 @@ import com.example.sanzarouth.moviefinder.Activities.MovieFinderActivity;
 import com.example.sanzarouth.moviefinder.Model.Movie;
 import com.example.sanzarouth.moviefinder.Rest.MovieService;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class DetailMovieViewModel extends AndroidViewModel {
 
@@ -37,17 +38,27 @@ public class DetailMovieViewModel extends AndroidViewModel {
 
     public void getMovieDetail(String query) {
         movieService.getMovieDetail(query, "full", MovieFinderActivity.KEY)
-                .enqueue(new Callback<Movie>() {
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Movie>() {
                     @Override
-                    public void onResponse(Call<Movie> call, Response<Movie> response) {
-                        if (response.isSuccessful()) {
-                            movieLiveData.setValue(response.body());
-                        }
+                    public void onSubscribe(Disposable d) {
+
                     }
 
                     @Override
-                    public void onFailure(Call<Movie> call, Throwable t) {
+                    public void onNext(Movie movie) {
+                        movieLiveData.setValue(movie);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
                         movieErrorLiveData.setValue(t);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
 
