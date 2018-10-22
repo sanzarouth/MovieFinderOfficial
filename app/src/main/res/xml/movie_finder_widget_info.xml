@@ -3,7 +3,7 @@
     android:initialKeyguardLayout="@layout/movie_finder_widget"
     android:initialLayout="@layout/movie_finder_widget"
     android:minHeight="40dp"
-    android:minWidth="40dp"
+    android:minWidth="300dp"
     android:previewImage="@drawable/popcorn"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="86400000"
