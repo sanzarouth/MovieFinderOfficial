@@ -37,7 +37,7 @@ public class MovieServiceImpl implements MovieService {
                         }
 
                         if(movie2.getYear().contains("–")){
-                            year2 = year1.substring(0, year1.length() - 1);
+                            year2 = year2.substring(0, year2.length() - 1);
                         }
 
                         int year1Int = Integer.parseInt(year1);
